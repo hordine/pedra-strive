@@ -1,0 +1,241 @@
+﻿<html>
+	<head>
+	</head>
+	<body bgcolor="#e4e7e8">
+	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#e4e7e8">
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td align="center" valign="top">
+				<table width="610" border="6" align="center" cellpadding="0" cellspacing="0" bordercolor="#ebedee">
+					<tr>
+						<td align="center" valign="top" bgcolor="#FFFFFF">
+							<table width="570" cellpadding="0" cellspacing="0" border="0" align="center">
+								<tr>
+									<td valign="middle">&nbsp;</td>
+								</tr>								<tr>
+									<td valign="middle">
+										${ctx.cmsSlotContents.SiteLogo}
+										<img src="${ctx.themeResourceUrl}/images/header_01.png" alt="" width="229" height="72" border="0" align="right" title="" />
+									</td>
+								</tr>
+								<tr>
+									<td height="30" align="right" valign="middle" bgcolor="#51585c">
+										<font color="#FFFFFF" size="2" face="Arial, Helvetica, sans-serif"><a href="${ctx.secureBaseUrl}/my-account"><font color="#FFFFFF">Mein Konto</font></a> | <a href="${ctx.baseUrl}/store-finder"><font color="#FFFFFF">Verkaufsstellensuche</font></a> &nbsp;&nbsp;</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="center" valign="middle">
+										<a href="${ctx.baseUrl}" style="display:block; margin-top:10px;margin-bottom:10px;">${ctx.cmsSlotContents.TopContent}</a>
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td align="left" valign="top">
+										<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>Sehr geehrte(r) ${ctx.title} ${ctx.displayName}</b>,</font></p>
+										<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">Vielen Dank f&uuml;r Ihre Bestellung. Ihre Bestellnummer lautet <font color="#414a4f" size="2" face="Arial, Helvetica, sans-serif"><b>${ctx.order.code}</b></font> und die Gesamtsumme betr&auml;gt <font color="#414a4f" size="2" face="Arial, Helvetica, sans-serif"><b>${ctx.order.totalPrice.formattedValue}</b></font></font></p>
+										<table width="100%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#bfc1c0">
+											<tr>
+												<td>
+													<table width="100%" cellpadding="0" cellspacing="0">
+														<tr>
+															<td width="50%">&nbsp;</td>
+															<td width="17%"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>Menge</b></font></td>
+															<td width="17%"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>Artikelpreis</b></font></td>
+															<td width="16%"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>Gesamtsumme</b></font></td>
+														</tr>
+														#foreach( $entry in ${ctx.order.entries} )
+														<!--<tr>
+															<td height="1" bgcolor="#666666" colspan="4"></td>
+														</tr>-->
+														<tr>
+															<td>
+																<table width="100%" border="0">
+																	<tr>
+																		<td valign="middle">
+																			<a href="${ctx.baseUrl}$entry.product.url">
+																				#foreach($image in $entry.product.images) #if($image.imageType == "PRIMARY" && $image.format == "thumbnail" )
+																				<img src="${ctx.mediaBaseUrl}$image.url" alt="" title="$entry.product.name" />
+																				#end #end
+																			</a>
+																		</td>
+																		<td>
+																			<table>
+																				<tr>
+																					<td colspan="3">
+																						<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">
+																							<a href="${ctx.baseUrl}$entry.product.url"><font color="#666666"><b>$entry.product.name</b></font></a>
+																						</p>
+																					</td>
+																				</tr>
+																				#if (!$entry.product.baseOptions.isEmpty())
+																				#foreach ($option in $entry.product.baseOptions)
+																				#if ($option.selected && ($option.selected.url == $entry.product.url))
+																				<tr>
+																					<td>
+																						<table width="100%">
+																							#foreach ($selectedOption in $option.selected.variantOptionQualifiers)
+																							<tr>
+																								<td width="30%"><p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">$selectedOption.name:</font></p></td>
+																								<td width="70%"><p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">$selectedOption.value</font></p></td>
+																							</tr>
+																							#end
+																						</table>
+																					</td>
+																				</tr>
+																				#end
+																				#end
+																				#end
+																				#if (!$ctx.order.appliedProductPromotions.isEmpty())
+																				<tr>
+																					<td valign="top">
+																						#foreach( $promotion in $ctx.order.appliedProductPromotions)
+																						#set ($displayed = false)
+																						#foreach ($consumedEntry in $promotion.consumedEntries)
+																						#if (!$displayed && ($consumedEntry.orderEntryNumber == $entry.entryNumber))
+																						#set ($displayed = true)
+																						<p><font color="#414a4f" size="2" face="Arial, Helvetica, sans-serif"><b>${promotion.description}</b></font></p>
+																						#end
+																						#end
+																						#end
+																					</td>
+																				</tr>
+																				#end
+																			</table>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+															<td valign="middle"><p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">$entry.quantity</font></p></td>
+															<td valign="middle"><p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">$entry.basePrice.formattedValue</font></p></td>
+															<td valign="middle"><p><font color="#414a4f" size="3" face="Arial, Helvetica, sans-serif"><b>#if($entry.totalPrice.value > 0) $entry.totalPrice.formattedValue #else KOSTENLOS #end</b></font></p></td>
+														</tr>
+														#end
+													</table>
+												</td>
+											</tr>
+										</table>
+										<br/>
+										<table width="100%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#bfc1c0">
+											<tr>
+												<td>
+													<table>
+														<tr>
+															<td width="40%"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>Lieferart</b></font></td>
+															<td width="10%">&nbsp;</td>
+															<td width="50%"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>Lieferadresse</b></font></td>
+														</tr>
+														<tr>
+															<td>&nbsp;</td>
+															<td>&nbsp;</td>
+															<td>&nbsp;</td>
+														</tr>
+														<tr>
+															<td>
+																#if(${ctx.order.deliveryCost.value} > 0)
+																<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.order.deliveryMode.name}</font></p>
+																#else
+																<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">Kostenlose Lieferung</font></p>
+																#end
+																<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">Ihre Lieferung sollte &uuml;ber die Lieferart ${ctx.order.deliveryMode.description} nach Absendung eingehen</font></p>
+															</td>
+															<td>&nbsp;</td>
+															<td><p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">${ctx.order.deliveryAddress.title} ${ctx.order.deliveryAddress.firstName} ${ctx.order.deliveryAddress.lastName}<br/>${ctx.order.deliveryAddress.line1} ${ctx.order.deliveryAddress.line2}<br/>${ctx.order.deliveryAddress.town}<br/>${ctx.order.deliveryAddress.postalCode}<br/>${ctx.order.deliveryAddress.country.name}</font></p></td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</table>
+										<br/>
+										<table width="100%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#bfc1c0">
+											<tr>
+												<td valign="top">
+													<table width="100%">
+														<tr>
+															<td width="30%"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>Zahlungsdetails</b></font></td>
+															<td width="20%">&nbsp;</td>
+															<td width="50%"><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>Bestellsumme</b></font></td>
+														</tr>
+														<tr>
+															<td>&nbsp;</td>
+															<td>&nbsp;</td>
+															<td>&nbsp;</td>
+														</tr>
+														<tr>
+															<td valign="top">
+																#if(${ctx.order.paymentInfo})
+																	<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">Mit der Karte ${ctx.order.paymentInfo.cardType} bezahlt</font></p>
+																	<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>Rechnungsadresse</b></font></p>
+																	<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">Rechnungsadresse:<br/> ${ctx.order.paymentInfo.billingAddress.firstName} ${ctx.order.paymentInfo.billingAddress.lastName}<br/>${ctx.order.paymentInfo.billingAddress.line1} ${ctx.order.paymentInfo.billingAddress.line2}<br/>${ctx.order.paymentInfo.billingAddress.town}<br/>${ctx.order.paymentInfo.billingAddress.postalCode}<br/>${ctx.order.paymentInfo.billingAddress.country.name}</font></p>
+																#end
+															</td>
+															<td>&nbsp;</td>
+															<td valign="top">
+																<table width="100%">
+																	<tr>
+																		<td valign="top" width="45%"><p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>Zwischensumme:</b></font></p></td>
+																		<td valign="top" width="10%">&nbsp;</td>
+																		<td valign="top" width="45%"><p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>${ctx.order.subTotal.formattedValue}</b></font></p></td>
+																	</tr>
+																	<tr>
+																		<td valign="top"><p><font color="#414a4f" size="2" face="Arial, Helvetica, sans-serif"><b>Ersparnisse:</b></font></p></td>
+																		<td valign="top">&nbsp;</td>
+																		<td valign="top"><p><font color="#414a4f" size="2" face="Arial, Helvetica, sans-serif"><b>${ctx.order.totalDiscounts.formattedValue}</b></font></p></td>
+																	</tr>
+																	<tr>
+																		<td valign="top"><p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>Lieferung:</b></font></p></td>
+																		<td valign="top">&nbsp;</td>
+																		<td valign="top"><p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>#if(${ctx.order.deliveryCost.value} > 0) ${ctx.order.deliveryCost.formattedValue} #else KOSTENLOS #end</b></font></p></td>
+																	</tr>
+																	<tr>
+																		<td valign="top"><p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>Gesamtsumme:</b></font></p></td>
+																		<td valign="top">&nbsp;</td>
+																		<td valign="top"><p><font color="#666666" size="3" face="Arial, Helvetica, sans-serif"><b>${ctx.order.totalPrice.formattedValue}</b></font></p></td>
+																	</tr>
+																</table>
+															<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">Auf Ihre Bestellung entfallen ${ctx.order.totalTax.formattedValue} MwSt.</font></p>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</table>
+										<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">Wenn Sie bei uns registriert sind und ein Konto haben, k&ouml;nnen Sie Ihre Bestelldetails unter <a href="${ctx.baseUrl}/my-account/orders"><font color="#666666">Bestellverlauf</font></a> nachlesen.</font></p>
+										<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">Wenn Sie noch kein Konto haben, k&ouml;nnen Sie eins heute erstellen? Die Zahlung erfolgt f&uuml;r Sie aufgrund der gespeicherten Lieferadresse und Zahlungsdetails beim n&auml;chsten Mal schneller.</font></p>
+										<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">Weitere Informationen &uuml;ber den Empfang Ihrer Bestellung finden Sie in den <a href="${ctx.baseUrl}/my-account/order/${ctx.order.code}"><font color="#666666">Lieferinformationen</font></a>.</font></p>
+										<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">Besuchen Sie bei Fragen unsere <a href="http://www.hybris.com/hybris/de/Contact.html"><font color="#666666">Kontakt</font></a>-Seite oder wenden Sie sich unter +49 (0)89 / 890 650 oder per E-Mail (<a href="mailto:customerservices@hybris.com"><font color="#666666">customerservices@hybris.com</font></a>) an unsere Kundendienstmitarbeiter.</font></p>
+										<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">Vielen Dank </font></p>
+										<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">Kundendienst</font></p>
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td align="center" valign="middle">
+										<a href="${ctx.baseUrl}" style="display:block; margin-top:10px;margin-bottom:10px;">${ctx.cmsSlotContents.BottomContent}</a>
+									</td>
+								</tr>
+								<tr>
+									<td height="30" align="right" valign="middle" bgcolor="#51585c">
+										<font color="#FFFFFF" size="2" face="Arial, Helvetica, sans-serif"><a href="${ctx.baseUrl}"><font color="#FFFFFF">Hilfe</font></a> | <a href="http://www.hybris.com/hybris/de/Contact.html"><font color="#FFFFFF">Kontakt</font></a> | <a href="${ctx.baseUrl}"><font color="#FFFFFF">Allgemeine Geschäftsbedingungen</font></a> &nbsp;&nbsp;</font>
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+	</table>
+</body>
+</html>

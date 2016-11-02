@@ -1,0 +1,30 @@
+# Payment Modes
+INSERT_UPDATE StandardPaymentMode;code[unique=true];name[lang=de];name[lang=en];name[lang=nl];description[lang=de];description[lang=en];description[lang=nl];active;paymentinfotype(code)
+;creditcard;Kreditkarte;creditcard;Vergoedingskaart;Bezahlung per Keditkarte;payment with creditcard;betalen later;true;CreditCardPaymentInfo
+;debitentry;Bankeinzug;incasso;Bank Collection;Bezahlung per Bankeinzug;payment with bank collection;betalen door bank;true;DebitPaymentInfo
+;invoice;Rechnung;Invoice;Factuur;per Rechnung bezahlen;payment with invoice;betalingsfactuur;true;InvoicePaymentInfo
+;advance;Vorkasse;Advance;Tevoren;per Vorkasse bezahlen;payment in advance;betalen van tevoren;true;AdvancePaymentInfo
+;bitcoin;Bitmunchen;Bitcoin;Bitmunt;per Vorkasse bezahlen;payment in advance;betalling zonder bank;true;BitcoinPaymentInfo
+
+INSERT_UPDATE StandardPaymentModeValue;paymentmode(code)[unique=true];currency(isoCode)[unique=true];value;;;;
+;creditcard;EUR;0;;;;
+;creditcard;USD;0;;;;
+;creditcard;GBP;0;;;;
+;debitentry;EUR;0;;;;;;
+;debitentry;USD;0;;;;;;
+;debitentry;GBP;0;;;;;;
+;invoice;EUR;1,5;;;;;;
+;invoice;USD;1,4;;;;;;
+;invoice;GBP;1,5;;;;;;
+;advance;EUR;0;;;;;;
+;advance;USD;0;;;;;;
+;advance;GBP;0;;;;;;
+;bitcoin;EUR;1.2;;;;;;
+;bitcoin;USD;1.2;;;;;;
+;bitcoin;GBP;1.2;;;;;;
+
+INSERT_UPDATE DeliveryMode;code[unique=true];active;net;supportedpaymentmodes(code);
+;courier;true;false;creditcard;Kreditkarte;creditcard,debitentry,invoice,advance,bitcoin;
+;postService;true;false;creditcard,debitentry,invoice,advance,bitcoin;
+;collect;true;false;invoice,advance,bitcoin;
+

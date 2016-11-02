@@ -1,0 +1,23 @@
+#
+# Import UserGroups for PedraOrderCockpit
+# 
+
+INSERT_UPDATE UserGroup;UID[unique=true];name;description;groups(uid)[mode=append]
+;pedraadmingroup;Pedra Admin Group;Pedra Admin Group;csagentgroup,cockpitgroup,employeegroup
+;ordermanagergroup;Pedra Order Manager Group;Pedra Order Manager Group;cockpitgroup,employeegroup
+;orderviewergroup;Pedra Order Viewer Group;Pedra Order Viewer Group;cockpitgroup,employeegroup
+
+#
+# Import PedraOrderCockpit Users
+#
+ 
+$passwordEncoding=md5
+$defaultPassword=1234
+$setPassword=@password[translator=de.hybris.platform.impex.jalo.translators.ConvertPlaintextToEncodedUserPasswordTranslator][default='$passwordEncoding:$defaultPassword']
+ 
+ 
+INSERT_UPDATE Employee;UID[unique=true];$setPassword;description;name;groups(uid);sessionLanguage(isocode);sessionCurrency(isocode)
+;ordermanager;;Order manager;Order Manager;ordermanagergroup;en;EUR
+;orderviewer;;Order viewer;Order Viewer;orderviewergroup;en;EUR
+;pedraadmin;;Pedra Admin;Pedra Admin;pedraadmingroup;en;EUR
+;csagent;;Pedra CS Agent;Pedra CS Agent;csagentgroup;en;EUR

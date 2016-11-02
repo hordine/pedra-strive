@@ -1,0 +1,22 @@
+# ImpEx for Importing Product Localisations into Hybris Store (German)
+ 
+# Macros / Replacement Parameter definitions
+$productCatalog=pedraProductCatalog
+$productCatalogName=Pedra Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+ 
+# Language
+$lang=de
+ 
+UPDATE Product;$catalogVersion;code[unique=true];name[lang=$lang];summary[lang=$lang];description[lang=$lang]
+;;0001;Hardrock Café Espressung;Und hardrock Espressung;<ol><li>Boersts your energisch</li><li>Wakes you up</li></ol>;
+;;0002;Hardrock Music CD;A CD for listening;<ol><li>Plays for a while</li><li>You listen for a while</li></ol>;
+;;0003;Rocky Balboa Quotes;Quotes to share on Facebook or something;<ol><li>It ain't about how hard you can hit</li><li>It's about how hard you can get it and keep moving on.</li></ol>;
+;;0050;The Eagles collection;A Collection of songs;<ol><li>Lots of songs from The Eagles</li><li>But mostly Hotel California</li></ol>;
+;;0051;Softy Limestone;A stone that's lime-like and soft;<ol><li>A lime</li><li>A stone</li></ol>;
+;;0052;James Taylor CD;No body loves you, when you're down and out;For moments when you're too happy;
+;;0100;Beatles Shirt;Beatles Shirt for your yellow submarine;<ol><li>A shirt</li><li>No yellow submarines</li></ol>;
+;;0101;Rolling Stones;Rolling Stones for males;<ol><li>Stones that roll</li></ol>;
+;;0200;Pedra Branca book;Da Pedra Branca book;<ol><li>A book about pedra branca</li><li></li></ol>;
+;;0201;Bob Marley Legend CD;Legend CD, no need to type more;<ol><li>A legendary CD</li></ol>;
+;;0202;Tribo de Jah T-Shirt;Tribo de Jah T-Shirt with a Lion;<ol><li>A shirt with Tribo de Jah</li><li>A shirt with a Lion on it</li></ol>;

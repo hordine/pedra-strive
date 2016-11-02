@@ -1,0 +1,12 @@
+
+INSERT_UPDATE StandardPaymentMode;code[unique=true];name[lang=de];name[lang=en];name[lang=nl];description[lang=de];description[lang=en];description[lang=nl];active;paymentinfotype(code)
+StandardPaymentMode,8796093055017,, column 4: cannot resolve value 'iDEAL' for attribute 'name' because: cannot find language for value 'nl', column 7: cannot resolve value 'betalling door iDEAL' for attribute 'description' because: cannot find language for value 'nl';<ignore>iDEAL;<ignore>iDEAL;<ignore>iDEAL;iDEAL;<ignore>per iDEAL bezahlen;<ignore>payment with iDEAL;betalling door iDEAL;<ignore>true;<ignore>IdealPaymentInfo
+
+INSERT_UPDATE StandardPaymentModeValue;paymentmode(code)[unique=true];currency(isoCode)[unique=true];value
+,,error finding existing item : column='currency' value='USD', , column 2: could not resolve item for USD;iDEAL;USD;0;;;;
+,,error finding existing item : column='currency' value='GBP', , column 2: could not resolve item for GBP;iDEAL;GBP;0;;;;
+
+INSERT_UPDATE DeliveryMode;code[unique=true];active;net;supportedpaymentmodes(code)
+DeliveryMode,8796093055016,, column 4: cannot resolve value 'creditcard,debitentry,invoice,advance,iDEAL' for attribute 'supportedpaymentmodes';<ignore>courier;<ignore>true;<ignore>false;creditcard,debitentry,invoice,advance,iDEAL;<ignore>
+DeliveryMode,8796093087784,, column 4: cannot resolve value 'creditcard,debitentry,invoice,advance,iDEAL' for attribute 'supportedpaymentmodes';<ignore>postService;<ignore>true;<ignore>false;creditcard,debitentry,invoice,advance,iDEAL;<ignore>
+DeliveryMode,8796093120552,, column 4: cannot resolve value 'invoice,advance,iDEAL' for attribute 'supportedpaymentmodes';<ignore>collect;<ignore>true;<ignore>false;invoice,advance,iDEAL;<ignore>

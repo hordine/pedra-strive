@@ -1,0 +1,41 @@
+#
+# Import Access Rights for PedraOrderCockpit
+# 
+
+$START_USERRIGHTS;;;;;;;;;
+Type;UID;MemberOfGroups;Password;Target;read;change;create;remove;change_perm
+UserGroup;ordermanagergroup;cockpitgroup;;;;;;;
+
+# Access Rights for Order Managers;;;;;;;;;
+;;;;Order;+;+;-;+;-;
+;;;;PaymentRequest;+;-;-;+;-;
+;;;;PaymentResponse;+;-;-;+;-;
+;;;;Customer;+;-;-;-;-;
+;;;;Store;+;-;-;-;-;
+;;;;SavedQuery;+;+;+;+;+;
+
+Type;UID;MemberOfGroups;Password;Target;read;change;create;remove;change_perm
+UserGroup;orderviewergroup;cockpitgroup;;;;;;;
+
+# Access Rights for Orders;;;;;;;;;
+;;;;Order;+;-;-;-;-;
+;;;;Customer;+;-;-;-;-;
+;;;;Store;+;-;-;-;-;
+
+
+$END_USERRIGHTS;;;;;
+
+$START_USERRIGHTS;;;;;;;;;
+Type;UID;MemberOfGroups;Password;Target;read;change;create;remove;change_perm
+UserGroup;pedraadmingroup;cockpitgroup;;;;;;;
+
+# Access Rights for Pedra Admins;;;;;;;;;
+;;;;WorkflowTemplate;+;+;+;+;+;
+;;;;WorkflowActionTemplate;+;+;+;+;+;
+;;;;WorkflowAction;+;+;+;+;+;
+;;;;AutomatedWorkflowActionTemplate;+;+;+;+;+;
+;;;;WorkflowDecisionTemplate;+;+;+;+;+;
+;;;;WorkflowActionTemplateLinkTemplateRelation;+;+;+;+;+;
+
+
+$END_USERRIGHTS;;;;;

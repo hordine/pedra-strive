@@ -1,0 +1,14 @@
+# Payment Modes
+INSERT_UPDATE StandardPaymentMode;code[unique=true];name[lang=de];name[lang=en];name[lang=nl];description[lang=de];description[lang=en];description[lang=nl];active;paymentinfotype(code)
+;iDEAL;iDEAL;iDEAL;iDEAL;per iDEAL bezahlen;payment with iDEAL;betalling door iDEAL;true;IdealPaymentInfo
+
+INSERT_UPDATE StandardPaymentModeValue;paymentmode(code)[unique=true];currency(isoCode)[unique=true];value;;;;
+;iDEAL;EUR;0;;;;
+;iDEAL;USD;0;;;;
+;iDEAL;GBP;0;;;;
+
+INSERT_UPDATE DeliveryMode;code[unique=true];active;net;supportedpaymentmodes(code);
+;courier;true;false;creditcard,debitentry,invoice,advance,iDEAL;
+;postService;true;false;creditcard,debitentry,invoice,advance,iDEAL;
+;collect;true;false;invoice,advance,iDEAL;
+

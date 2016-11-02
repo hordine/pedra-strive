@@ -1,0 +1,13 @@
+
+#
+# Import the Pedra BaseStore
+#
+# ENGLISH LOCALIZATION
+#
+ 
+$lang=en
+ 
+$storeUid=pedra
+ 
+UPDATE BaseStore;uid[unique=true];name[lang=$lang]
+;$storeUid;"pedra Store"

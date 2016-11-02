@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+
+  
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<itemtypes>
+		<typegroup name="IdealPayment">
+			<itemtype code="IdealPaymentRequest" autocreate="false" generate="false">
+				<attributes>
+					<attribute qualifier="websiteKey" type="java.lang.String">
+						<description>Website key according to buckaroo</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="culture" type="java.lang.String">
+						<description>brq_culture sent to buckaroo</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="description" type="java.lang.String">
+						<description>brq_description sent to buckaroo</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="apiResult" type="java.lang.String">
+						<description>brq_apiresult sent from buckaroo</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="apiErrorMessage" type="java.lang.String">
+						<description>brq_apierrormessage sent from buckaroo</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="resultTransactionKeys" type="java.lang.String">
+						<description>Transaction id according to buckaroo, may be several values separated by comma</description>
+						<modifiers />
+						<persistence type="property">
+							<columntype database="oracle">
+								<value>varchar2(10000)</value>
+							</columntype>
+							<columntype database="mysql">
+								<value>text</value>
+							</columntype>
+							<columntype database="sqlserver">
+								<value>nvarchar(max)</value>
+							</columntype>
+							<columntype database="hsqldb">
+								<value>LONGVARCHAR</value>
+							</columntype>
+							<columntype>
+								<value>varchar</value>
+							</columntype>
+						</persistence>
+					</attribute>
+					<attribute qualifier="resultCode" type="java.lang.String">
+						<description>Response, result code from buckaroo</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="resultMessage" type="java.lang.String">
+						<description>Response, result message from buckaroo</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<itemtype code="IdealPaymentResponse" autocreate="false" generate="false">
+				<attributes>
+					<attribute qualifier="transactionKeys" type="java.lang.String">
+						<description>Transaction id according to buckaroo, may be several values separated by comma</description>
+						<modifiers />
+						<persistence type="property">
+							<columntype database="oracle">
+								<value>varchar2(10000)</value>
+							</columntype>
+							<columntype database="mysql">
+								<value>text</value>
+							</columntype>
+							<columntype database="sqlserver">
+								<value>nvarchar(max)</value>
+							</columntype>
+							<columntype database="hsqldb">
+								<value>LONGVARCHAR</value>
+							</columntype>
+							<columntype>
+								<value>varchar</value>
+							</columntype>
+						</persistence>
+					</attribute>
+					<attribute qualifier="websiteKey" type="java.lang.String">
+						<description>Website key according to buckaroo</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="statusCodeDetail" type="java.lang.String">
+						<description>brq_statuscode_detail from Buckaroo</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="statusMessage" type="java.lang.String">
+						<description>brq_statusmessage from Buckaroo</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+				</attributes>
+			</itemtype>			
+		</typegroup>
+	</itemtypes>
+</items>

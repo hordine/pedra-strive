@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list-view unassigned-group-name="Other">
+	<group name="General">
+		<property qualifier="Customer.customerID" visible="true"/>
+		<property qualifier="Customer.name" visible="true"/>
+		<property qualifier="Customer.defaultShipmentAddress" visible="true"/>
+	</group>
+</list-view>

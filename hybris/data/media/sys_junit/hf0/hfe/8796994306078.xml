@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grid-view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="grid-view.xsd">
+	<imageslot>
+		<property qualifier="AbstractPage.previewImage.url"/>
+	</imageslot>
+	<labelslot>
+		<property qualifier="AbstractPage.name" />
+	</labelslot>
+	<descriptionslot>
+		<property qualifier="AbstractPage.uid" />
+	</descriptionslot>
+	<shortinfoslot>
+		<property qualifier="AbstractPage.catalogVersion.mnemonic"/>
+	</shortinfoslot>
+	<actionslot spring-bean="CatalogAbstractPageSectionListActionColumn"/>
+<!--	<specialactionslot>-->
+<!--	</specialactionslot>-->
+</grid-view>

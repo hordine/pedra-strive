@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editor>
+    <group qualifier="General" visible="true" initially-opened="true">
+        <label key="cockpit.config.label.properties"/>
+        <property qualifier="Order.code"/>
+        <property qualifier="Order.user"/>
+        <property qualifier="Order.currency"/>
+        <property qualifier="Order.date"/>
+    </group>
+ 
+    <group qualifier="admin" visible="true" initially-opened="false">
+        <label key="cockpit.config.label.administration"/>
+        <property qualifier="Item.pk" />
+        <property qualifier="Item.creationTime" />
+    </group>
+ 
+    <custom-group
+        class="de.hybris.platform.cockpit.services.config.impl.UnassignedEditorSectionConfiguration"
+        qualifier="unassigned"
+        initially-opened="false">
+        <label key="cockpit.config.label.other"/>
+    </custom-group>
+</editor>

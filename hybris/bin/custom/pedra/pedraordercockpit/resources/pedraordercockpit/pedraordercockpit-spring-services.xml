@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop-3.1.xsd"
+	default-autowire="byName">
+	
+	<alias alias="cmsSiteLabelProvider" name="baseSiteModelLabelProvider"/>
+	<bean id="baseSiteModelLabelProvider" class="de.hybris.platform.cscockpit.services.label.impl.BaseSiteModelLabelProvider" scope="tenant" parent="abstractModelLabelProvider"/>
+	
+	<alias alias="addressModelLabelProvider" name="defaultAddressModelLabelProvider" />
+	<bean id="defaultAddressModelLabelProvider" class="de.hybris.platform.cscockpit.services.label.impl.AddressModelLabelProvider" scope="tenant" parent="abstractModelLabelProvider"/>
+	
+	<alias alias="deliveryModeModelLabelProvider" name="defaultDeliveryModeModelLabelProvider" />
+	<bean id="defaultDeliveryModeModelLabelProvider" class="de.hybris.platform.cscockpit.services.label.impl.DeliveryModeModelLabelProvider" scope="tenant" parent="abstractModelLabelProvider">
+		<property name="deliveryModeCostRetrievalStrategy" ref="deliveryModeCostRetrievalStrategy"/>
+	</bean>
+	
+	<alias alias="deliveryModeCostRetrievalStrategy" name="defaultDeliveryModeCostRetrievalStrategy" />
+	<bean id="defaultDeliveryModeCostRetrievalStrategy" class="de.hybris.platform.cscockpit.strategies.impl.DefaultDeliveryModeCostRetrievalStrategy" scope="session">
+		<property name="basketController" ref="csBasketController"/>
+		<property name="deliveryService" ref="deliveryService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="formatFactory" ref="formatFactory"/>
+		<property name="sessionService" ref="sessionService"/>
+	</bean>
+	
+	
+
+</beans>

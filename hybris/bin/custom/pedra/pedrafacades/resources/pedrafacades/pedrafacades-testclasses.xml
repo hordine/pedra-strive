@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testclasses>
+  <pedrafacades>
+    <testclass>com.pedra.facades.suggestion.impl.DefaultSimpleSuggestionFacadeTest</testclass>
+    <testclass>com.pedra.facades.flow.impl.DefaultCheckoutFlowFacadeTest</testclass>
+    <testclass>com.pedra.facades.flow.impl.DefaultMobileCheckoutFlowFacadeTest</testclass>
+    <testclass>com.pedra.facades.suggestion.DefaultSimpleSuggestionFacadeIntegrationTest</testclass>
+  </pedrafacades>
+</testclasses>

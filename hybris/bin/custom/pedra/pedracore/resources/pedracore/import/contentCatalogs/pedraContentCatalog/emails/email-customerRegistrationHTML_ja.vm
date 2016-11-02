@@ -1,0 +1,76 @@
+﻿<html>
+	<head>
+	</head>
+	<body bgcolor="#e4e7e8">
+	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#e4e7e8">
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td align="center" valign="top">
+				<table width="610" border="6" align="center" cellpadding="0" cellspacing="0" bordercolor="#ebedee">
+					<tr>
+						<td align="center" valign="top" bgcolor="#FFFFFF">
+							<table width="570" cellpadding="0" cellspacing="0" border="0" align="center">
+								<tr>
+									<td valign="middle">&nbsp;</td>
+								</tr>
+								<tr>
+									<td valign="middle">
+										${ctx.cmsSlotContents.SiteLogo}
+										<img src="${ctx.themeResourceUrl}/images/header_01.png" alt="" width="229" height="72" border="0" align="right" title="" />
+									</td>
+								</tr>
+								<tr>
+									<td height="30" align="right" valign="middle" bgcolor="#51585c">
+										<font color="#FFFFFF" size="2" face="Arial, Helvetica, sans-serif"><a href="${ctx.secureBaseUrl}/my-account"><font color="#FFFFFF">マイ アカウント</font></a> | <a href="${ctx.baseUrl}/store-finder"><font color="#FFFFFF">ストアの検索</font></a> &nbsp;&nbsp;</font>
+									</td>
+								</tr>
+								<tr>
+									<td align="center" valign="middle">
+										<a href="${ctx.baseUrl}" style="display:block; margin-top:10px;margin-bottom:10px;">${ctx.cmsSlotContents.TopContent}</a>
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td align="left" valign="top">
+										<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif"><b>${ctx.title} ${ctx.displayName} 様</b>,</font></p>
+										<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">hybris へご登録ありがとうございます。どうぞ当店でショッピングをお楽しみください。</font></p>
+										<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">ご登録の Eメールアドレス： ${ctx.email}.</font></p>
+										<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">ショッピングを始めるにはここをクリックします： <a href="${ctx.baseUrl}"><font color="#666666">${ctx.baseUrl}</font></a> <br>
+										 アカウントにアクセスするには、ここをクリックします。 <a href="${ctx.secureBaseUrl}/my-account"><font color="#666666">マイ アカウント</font></a><br>
+										パスワードを忘れた場合は、ここをクリックすればいつでもリセットできます。 <a href="${ctx.secureBaseUrl}/login/pw/request"><font color="#666666">パスワードを更新 </font></a></font></p>
+										<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">ご質問がおありの場合は <a href="http://www.hybris.com/hybris/de/Contact.html"><font color="#666666">連絡先</font></a> ページをお使いになるか、または当ショップのカスタマー サービス チームへお電話 +49 (0)89 / 890 650 あるいは Eメール <a href="mailto:customerservices@hybris.com"><font color="#666666">customerservices@hybris.com</font></a>.で直接お問合せください。</font></p>
+										<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">どうもありがとうございます </font></p>
+										<p><font color="#666666" size="2" face="Arial, Helvetica, sans-serif">カスタマー サービス</font></p></td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td align="center" valign="middle">
+										<a href="${ctx.baseUrl}" style="display:block; margin-top:10px;margin-bottom:10px;">${ctx.cmsSlotContents.BottomContent}</a>
+									</td>
+								</tr>
+								<tr>
+									<td height="30" align="right" valign="middle" bgcolor="#51585c">
+										<font color="#FFFFFF" size="2" face="Arial, Helvetica, sans-serif"><a href="${ctx.baseUrl}"><font color="#FFFFFF">ヘルプ</font></a> | <a href="http://www.hybris.com/hybris/de/Contact.html"><font color="#FFFFFF">連絡先</font></a> | <a href="${ctx.baseUrl}"><font color="#FFFFFF">利用条件</font></a> &nbsp;&nbsp;</font>
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,22 @@
+# ImpEx for Importing Prices into Merchandise Store
+ 
+# Macros / Replacement Parameter definitions
+$productCatalog=pedraProductCatalog
+ 
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+$prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
+ 
+# Set product approval status to Approved only for those products that have prices.
+$approved=approvalstatus(code)[default='approved']
+ 
+UPDATE Product;code[unique=true];$prices;$approved;$catalogVersion;
+;0001;50,00 GBP, 55,50 EUR
+;0002;20,50 GBP, 22,75 EUR
+;0050;50,00 GBP, 55,50 EUR
+;0051;10,00 GBP, 11,00 EUR
+;0052;8,00 GBP, 10,00 EUR
+;0100;20,00 GBP, 22,00 EUR
+;0101;20,00 GBP, 22,00 EUR
+;0200;30,00 GBP, 33,00 EUR
+;0201;30,00 GBP, 33,00 EUR
+;0202;30,00 GBP, 33,00 EUR

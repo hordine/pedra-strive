@@ -1,0 +1,3 @@
+update AttributeDescriptor;enclosingType(code)[unique=true];qualifier[unique=true];unique
+;ReviewToUserRel;user;false
+;ReviewToProductRel;product;false

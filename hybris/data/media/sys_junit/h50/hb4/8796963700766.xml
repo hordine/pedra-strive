@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editor>
+	
+	<group qualifier="General" visible="true" initially-opened="true">
+		<label key="cockpit.config.label.General" />
+		<property qualifier="comment.subject" />
+		<property qualifier="comment.text"/>
+		<property qualifier="comment.attachments" />
+	</group>
+	
+</editor>

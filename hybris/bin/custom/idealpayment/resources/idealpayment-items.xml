@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+
+  
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<relations>
+
+		<relation code="OrderIdealPaymentRequestRelation"
+			autocreate="true" localized="false">
+			<sourceElement type="Order" qualifier="order"
+				cardinality="one">
+				<modifiers />
+			</sourceElement>
+			<targetElement type="IdealPaymentRequest" qualifier="requests"
+				cardinality="many">
+				<modifiers />
+			</targetElement>
+		</relation>
+
+		<relation code="IdealPaymentRequestResponseRelation"
+			autocreate="true" localized="false">
+			<sourceElement type="IdealPaymentRequest" qualifier="request"
+				cardinality="one">
+				<modifiers />
+			</sourceElement>
+			<targetElement type="IdealPaymentResponse"
+				qualifier="responses" cardinality="many">
+				<modifiers />
+			</targetElement>
+		</relation>
+
+	</relations>	
+	<itemtypes>
+	
+		<itemtype code="Order" autocreate="false" generate="false">
+			<description>Extending Order type with additional attributes.</description>
+			<attributes>
+				<attribute qualifier="cartCode" type="java.lang.String">
+					<description>The cart code of the cart for which the order was placed.</description>
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+		
+      <typegroup name="IdealPayment">
+			<itemtype code="IdealPaymentRequest" jaloclass="com.pedra.ideal.jalo.payment.IdealPaymentRequest"
+                autocreate="true" generate="true">
+				<deployment table="IdealPaymentRequests" typecode="10001" />
+				<attributes>
+					<attribute qualifier="orderCode" type="java.lang.String">
+						<description>Copy of the orders code</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="clientIP" type="java.lang.String">
+						<description>IP of the client making the iDEAL payment</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="requestTime" type="java.util.Date">
+						<description>The time when the request was made</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="amount" type="java.lang.String">
+						<description>Amount to pay</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="currency" type="java.lang.String">
+						<description>Currency to pay</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="redirectUrl" type="java.lang.String">
+						<description>URL to redirect client to</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="httpStatusLine" type="java.lang.String">
+						<description>HTTP Status line returned from buckaroo</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="requestParams" type="java.lang.String">
+						<description>Stores the raw request</description>
+						<modifiers />
+						<persistence type="property">
+							<columntype database="oracle">
+								<value>varchar2(10000)</value>
+							</columntype>
+							<columntype database="mysql">
+								<value>text</value>
+							</columntype>
+							<columntype database="sqlserver">
+								<value>nvarchar(max)</value>
+							</columntype>
+							<columntype database="hsqldb">
+								<value>LONGVARCHAR</value>
+							</columntype>
+							<columntype>
+								<value>varchar</value>
+							</columntype>
+						</persistence>
+					</attribute>
+					<attribute qualifier="resultFull" type="java.lang.String">
+						<description>Stores the raw result</description>
+						<modifiers />
+						<persistence type="property">
+							<columntype database="oracle">
+								<value>varchar2(10000)</value>
+							</columntype>
+							<columntype database="mysql">
+								<value>text</value>
+							</columntype>
+							<columntype database="sqlserver">
+								<value>nvarchar(max)</value>
+							</columntype>
+							<columntype database="hsqldb">
+								<value>LONGVARCHAR</value>
+							</columntype>
+							<columntype>
+								<value>varchar</value>
+							</columntype>
+						</persistence>
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<itemtype code="IdealPaymentResponse" jaloclass="com.pedra.ideal.jalo.payment.IdealPaymentResponse"
+                autocreate="true" generate="true">
+				<deployment table="IdealPaymentResponses" typecode="10002" />
+				<attributes>
+					<attribute qualifier="orderCode" type="java.lang.String">
+						<description>Copy of the orders code</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="responseTime" type="java.util.Date">
+						<description>The time when the push response was created at buckaroo</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="status" type="java.lang.String">
+						<description>Status code of the transaction</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="responseFull" type="java.lang.String">
+						<description>Stores the raw push response</description>
+						<modifiers />
+						<persistence type="property">
+							<columntype database="oracle">
+								<value>varchar2(10000)</value>
+							</columntype>
+							<columntype database="mysql">
+								<value>text</value>
+							</columntype>
+							<columntype database="sqlserver">
+								<value>nvarchar(max)</value>
+							</columntype>
+							<columntype database="hsqldb">
+								<value>LONGVARCHAR</value>
+							</columntype>
+							<columntype>
+								<value>varchar</value>
+							</columntype>
+						</persistence>
+					</attribute>
+				</attributes>
+			</itemtype>
+			<itemtype code="IdealPaymentInfo"
+               extends="PaymentInfo"
+               jaloclass="com.pedra.ideal.jalo.payment.IdealPaymentInfo"
+               autocreate="true"
+               generate="true">
+         	<attributes>
+               <attribute qualifier="clientIP" type="java.lang.String">
+						<description>IP of the client making the iDEAL payment</description>
+						<modifiers />
+						<persistence type="property" />
+					</attribute>
+				</attributes>
+     		</itemtype>
+			
+		</typegroup>
+	</itemtypes>
+</items>

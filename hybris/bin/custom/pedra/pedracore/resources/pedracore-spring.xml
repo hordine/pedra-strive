@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2012 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Spring Integration -->
+	<import resource="classpath:/pedracore/integration/hot-folder-store-electronics-spring.xml"/>
+	<import resource="classpath:/pedracore/integration/hot-folder-store-apparel-spring.xml"/>
+	<import resource="classpath:/pedracore/integration/hot-folder-common-spring.xml"/>
+
+	<!-- SystemSetup for the PedraCore -->
+	<bean id="pedraCoreSystemSetup" class="com.pedra.core.setup.CoreSystemSetup"
+	      scope="tenant" parent="abstractCoreSystemSetup"/>
+
+	<!-- Solr field value providers -->
+
+	<!-- 
+	<bean id="electronicsCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="1"/>  -->
+		<!-- '1' is the root icecat category -->
+	<!-- </bean> -->
+	<bean id="electronicsBrandCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="brands"/>
+		<!-- 'brands' is the root of the brands hierarchy -->
+	</bean>
+
+	<bean id="apparelCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="categories"/>
+		<!-- 'categories' is the root apparel category -->
+	</bean>
+	<bean id="apparelBrandCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="brands"/>
+		<!-- 'brands' is the root of the brands hierarchy -->
+	</bean>
+	<bean id="apparelCollectionCategorySource" parent="abstractCategorySource">
+		<property name="rootCategory" value="collections"/> <!-- 'collections' is the root of the collections hierarchy -->
+	</bean>
+
+	<bean id="abstractCategoryCodeValueProvider" abstract="true"
+	      class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.CategoryCodeValueProvider"
+	      parent="abstractPropertyFieldValueProvider" scope="tenant">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+	<bean id="abstractCategoryNameValueProvider" abstract="true"
+	      class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.CategoryNameValueProvider"
+	      parent="abstractPropertyFieldValueProvider" scope="tenant">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+
+	<!-- 
+	<bean id="electronicsCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="electronicsCategorySource"/>
+	</bean>
+	 -->
+	<bean id="electronicsBrandCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="electronicsBrandCategorySource"/>
+	</bean>
+	<!-- 
+	<bean id="electronicsCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="electronicsCategorySource"/>
+	</bean>
+	 -->
+	<bean id="electronicsBrandCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="electronicsBrandCategorySource"/>
+	</bean>
+
+	<bean id="apparelCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="apparelCategorySource"/>
+	</bean>
+	<bean id="apparelBrandCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="apparelBrandCategorySource"/>
+	</bean>
+	<bean id="apparelCollectionCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="apparelCollectionCategorySource"/>
+	</bean>
+	<bean id="apparelCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="apparelCategorySource"/>
+	</bean>
+	<bean id="apparelBrandCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="apparelBrandCategorySource"/>
+	</bean>
+	<bean id="apparelCollectionCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="apparelCollectionCategorySource"/>
+	</bean>
+
+	<bean id="image515ValueProvider" parent="abstractImageValueProvider" scope="tenant">
+		<property name="mediaFormat" value="515Wx515H"/>
+	</bean>
+	<bean id="image300ValueProvider" parent="abstractImageValueProvider" scope="tenant">
+		<property name="mediaFormat" value="300Wx300H"/>
+	</bean>
+	<bean id="image96ValueProvider" parent="abstractImageValueProvider" scope="tenant">
+		<property name="mediaFormat" value="96Wx96H"/>
+	</bean>
+	<bean id="image65ValueProvider" parent="abstractImageValueProvider" scope="tenant">
+		<property name="mediaFormat" value="65Wx65H"/>
+	</bean>
+	<bean id="image30ValueProvider" parent="abstractImageValueProvider" scope="tenant">
+		<property name="mediaFormat" value="30Wx30H"/>
+	</bean>
+
+	<bean id="productUrlValueProvider"
+	      class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.ProductUrlValueProvider"
+	      parent="abstractPropertyFieldValueProvider" scope="tenant">
+		<property name="urlResolver" ref="productModelUrlResolver"/>
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+		<property name="i18nService" ref="i18nService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+
+	<bean id="promotionCodeValueProvider"
+	      class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.PromotionCodeValueProvider"
+	      parent="abstractPropertyFieldValueProvider" scope="tenant">
+		<property name="promotionsService" ref="promotionsService"/>
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="promotionImageValueProvider"
+	      class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.PrimaryPromotionImageValueProvider"
+	      parent="abstractPropertyFieldValueProvider" scope="tenant">
+		<property name="promotionsService" ref="promotionsService"/>
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+	
+	<bean id="colorFacetValueProvider"
+	      class="com.pedra.core.search.solrfacetsearch.provider.impl.ColorFacetValueProvider"
+	      scope="tenant" parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="colorFacetDisplayNameProvider"
+	      class="com.pedra.core.search.solrfacetsearch.provider.impl.ColorFacetDisplayNameProvider"
+	      scope="tenant">
+		<property name="enumerationService" ref="enumerationService"/>
+		<property name="i18nService" ref="i18nService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+
+	<bean id="apparelPointOfServiceFacetDisplayNameProvider"
+	      class="com.pedra.core.search.solrfacetsearch.provider.impl.PointOfServiceFacetDisplayNameProvider"
+	      scope="tenant">
+		<property name="pointOfServiceService" ref="pointOfServiceService"/>
+	</bean>
+	
+	<bean id="electronicsPointOfServiceFacetDisplayNameProvider"
+	      class="com.pedra.core.search.solrfacetsearch.provider.impl.PointOfServiceFacetDisplayNameProvider"
+	      scope="tenant">
+		<property name="pointOfServiceService" ref="pointOfServiceService"/>
+	</bean>
+
+	<bean id="genderValueProvider"
+	      class="com.pedra.core.search.solrfacetsearch.provider.impl.GenderValueProvider"
+	      scope="tenant" parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="genderFacetDisplayNameProvider"
+	      class="com.pedra.core.search.solrfacetsearch.provider.impl.GenderFacetDisplayNameProvider"
+	      scope="tenant">
+		<property name="enumerationService" ref="enumerationService"/>
+		<property name="i18nService" ref="i18nService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+	</bean>
+
+	<!--
+		Event listeners are singletons, therefore the dependency for a bean in tenant-scope
+		must be configured with a lookup method.
+	-->
+	<bean id="customerRegistrationEventListener"
+	      class="com.pedra.core.event.RegistrationEventListener" parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="forgottenPasswordEventListener"
+	      class="com.pedra.core.event.ForgottenPasswordEventListener" parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="submitOrderEventListener" class="com.pedra.core.event.SubmitOrderEventListener" parent="abstractSiteEventListener">
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="baseStoreService" ref="baseStoreService"/>
+	</bean>
+	<bean id="orderConfirmationEventListener"
+	      class="com.pedra.core.event.OrderConfirmationEventListener" parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="sendDeliveryMessageEventListener"
+	      class="com.pedra.core.event.SendDeliveryMessageEventListener" parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="sendReadyForPickupMessageEventListener"
+	      class="com.pedra.core.event.SendReadyForPickupMessageEventListener" parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+	<bean id="orderCompletedEventListener" class="com.pedra.core.event.OrderCompletedEventListener" parent="abstractSiteEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<!-- Process resources definition -->
+
+	<bean id="customerRegistrationEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" scope="tenant">
+		<property name="resource" value="classpath:/pedracore/processes/customerRegistrationEmailProcess.xml"/>
+	</bean>
+	<bean id="forgottenPasswordEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" scope="tenant">
+		<property name="resource" value="classpath:/pedracore/processes/forgottenPasswordEmailProcess.xml"/>
+	</bean>
+	<bean id="orderConfirmationEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" scope="tenant">
+		<property name="resource" value="classpath:/pedracore/processes/orderConfirmationEmailProcess.xml"/>
+	</bean>
+	<bean id="sendDeliveryEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" scope="tenant">
+		<property name="resource" value="classpath:/pedracore/processes/sendDeliveryEmailProcess.xml"/>
+	</bean>
+	<bean id="sendReadyForPickupEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" scope="tenant">
+		<property name="resource" value="classpath:/pedracore/processes/sendReadyForPickupEmailProcess.xml"/>
+	</bean>
+
+
+	<!-- Actions -->
+	<bean id="abstractAction" class="de.hybris.platform.processengine.action.AbstractAction" scope="tenant"
+	      abstract="true">
+		<property name="modelService" ref="modelService"/>
+		<property name="processParameterHelper" ref="processParameterHelper"/>
+	</bean>
+
+	<bean id="sendEmail" class="de.hybris.platform.acceleratorservices.process.email.actions.SendEmailAction"
+	      scope="tenant" parent="abstractAction">
+		<property name="emailService" ref="emailService"/>
+	</bean>
+
+	<bean id="abstractGenerateEmailAction" class="de.hybris.platform.acceleratorservices.process.email.actions.GenerateEmailAction" scope="tenant" 
+	      parent="abstractAction" abstract="true">
+		<property name="modelService" ref="modelService"/>
+		<property name="cmsEmailPageService" ref="cmsEmailPageService"/>
+		<property name="contextResolutionStrategy" ref="processContextResolutionStrategy"/>
+		<property name="emailGenerationService" ref="emailGenerationService"/>
+	</bean>
+
+	<bean id="generateCustomerRegistrationEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="CustomerRegistrationEmailTemplate"/>
+	</bean>
+
+	<bean id="generateForgottenPasswordEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ForgottenPasswordEmailTemplate"/>
+	</bean>
+
+	<bean id="generateOrderConfirmationEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderConfirmationEmailTemplate"/>
+	</bean>
+	
+	<bean id="generateDeliverySentEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="DeliverySentEmailTemplate"/>
+	</bean>
+
+	<bean id="generateReadyForPickupEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ReadyForPickupEmailTemplate"/>
+	</bean>
+
+	<bean id="removeSentEmail"
+	      class="de.hybris.platform.acceleratorservices.process.email.actions.RemoveSentEmailAction" scope="tenant"
+	      parent="abstractAction">
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
+	<!-- Simple Suggestion Service -->
+	<alias alias="simpleSuggestionService" name="defaultSimpleSuggestionService"/>
+	<bean id="defaultSimpleSuggestionService"
+	      class="com.pedra.core.suggestion.impl.DefaultSimpleSuggestionService" scope="tenant">
+		<property name="simpleSuggestionDao" ref="simpleSuggestionDao"/>
+	</bean>
+	<alias alias="simpleSuggestionDao" name="defaultSimpleSuggestionDao"/>
+	<bean id="defaultSimpleSuggestionDao"
+	      class="com.pedra.core.suggestion.dao.impl.DefaultSimpleSuggestionDao"
+	      parent="abstractItemDao" scope="tenant">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+	
+	<alias alias="productDao" name="pedraProductDao" />
+	<bean id="pedraProductDao" class="com.pedra.core.product.dao.impl.PedraProductDaoImpl">
+		<constructor-arg value="Product"/>
+	</bean>
+	
+	<alias alias="pedraCartDao" name="defaultPedraCartDao"/>
+	<bean id="defaultPedraCartDao" class="com.pedra.core.cart.dao.impl.PedraCartDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+
+	<bean id="mccSiteUrlHelper" class="com.pedra.core.util.MccSiteUrlHelper">
+		<property name="siteBaseUrlResolutionService" ref="siteBaseUrlResolutionService"/>
+		<property name="cmsSiteService" ref="cmsSiteService"/>
+	</bean>
+
+
+	<!-- checkout flow configuration -->
+
+	<alias alias="checkoutFlowStrategy" name="uiExperienceCheckoutFlowStrategy"/>
+	<bean id="uiExperienceCheckoutFlowStrategy"
+	      class="com.pedra.core.checkout.flow.impl.UiExperienceCheckoutFlowStrategy"
+	      scope="tenant">
+		<!-- This strategy looks up a strategy based on the current UI experience level -->
+		<property name="uiExperienceService" ref="uiExperienceService"/>
+
+		<property name="experienceMappings">
+			<map>
+				<entry key="MOBILE" value-ref="multiStepCheckoutFlowStrategy"/>
+			</map>
+		</property>
+
+		<!-- Default to site specific checkout -->
+		<property name="defaultStrategy" ref="pickUpInStoreCheckoutFlowStrategy"/>
+	</bean>
+	
+	<bean id="pickUpInStoreCheckoutFlowStrategy" class="com.pedra.core.checkout.flow.impl.PickUpInStoreCheckoutFlowStrategy" scope="tenant">
+		<property name="pickupStrategy" ref="pickupStrategy" />
+		<property name="defaultStrategy" ref="siteCheckoutFlowStrategy"/>
+		<property name="multiStepCheckoutFlowStrategy" ref="multiStepCheckoutFlowStrategy" />
+	</bean>	
+
+	<bean id="siteCheckoutFlowStrategy"
+	      class="com.pedra.core.checkout.flow.impl.SiteCheckoutFlowStrategy" scope="tenant">
+		<!-- This strategy looks up a strategy based on the current site UID -->
+		<property name="cmsSiteService" ref="cmsSiteService"/>
+		<property name="siteMappings">
+			<map>
+				<entry key="pedra" value-ref="multiStepCheckoutFlowStrategy"/>
+			</map>
+		</property>
+		<!-- Default to SINGLE step checkout -->
+		<property name="defaultStrategy" ref="singleStepCheckoutFlowStrategy"/>
+	</bean>
+
+	<bean id="newCustomerCheckoutFlowStrategy"
+	      class="com.pedra.core.checkout.flow.impl.NewCustomerCheckoutFlowStrategy" scope="tenant">
+		<!-- This strategy works out if the user has created any data -->
+		<property name="userService" ref="userService"/>
+		<property name="customerAccountService" ref="customerAccountService"/>
+		<property name="defaultStrategy" ref="singleStepCheckoutFlowStrategy"/>
+		<property name="newCustomerStrategy" ref="multiStepCheckoutFlowStrategy"/>
+	</bean>
+
+	<bean id="singleStepCheckoutFlowStrategy"
+	      class="com.pedra.core.checkout.flow.impl.FixedCheckoutFlowStrategy" scope="tenant">
+		<property name="checkoutFlow" value="SINGLE"/>
+	</bean>
+
+	<bean id="multiStepCheckoutFlowStrategy"
+	      class="com.pedra.core.checkout.flow.impl.FixedCheckoutFlowStrategy" scope="tenant">
+		<property name="checkoutFlow" value="MULTISTEP"/>
+	</bean>
+
+	<!--Checkout PCI Strategies -->
+	<alias alias="checkoutPciStrategy" name="configuredCheckoutPciStrategy"/>
+	<bean id="configuredCheckoutPciStrategy"
+	      class="com.pedra.core.checkout.pci.impl.ConfiguredCheckoutPciStrategy" scope="tenant">
+		<!-- This strategy looks in the session to see if HOP is the chosen option.  HOP is only valid if configured in the application properties file. Defaults to wsCheckoutPciStrategy. -->
+		<property name="siteConfigService" ref="siteConfigService"/>
+
+		<!-- Default to the wsCheckoutPciStrategy -->
+		<property name="defaultCheckoutPciStrategy" ref="wsCheckoutPciStrategy"/>
+	</bean>
+
+	<bean id="wsCheckoutPciStrategy"
+	      class="com.pedra.core.checkout.pci.impl.FixedCheckoutPciStrategy" scope="tenant">
+		<!-- Use the Payment extension web services to create credit card details -->
+		<property name="subscriptionPciOption" value="DEFAULT"/>
+	</bean>
+	<bean id="hopCheckoutPciStrategy"
+	      class="com.pedra.core.checkout.pci.impl.FixedCheckoutPciStrategy" scope="tenant">
+		<!-- Use the Hosted Order Payment to create credit card details -->
+		<property name="subscriptionPciOption" value="HOP"/>
+	</bean>
+
+	<!-- Product Reference Lookup Strategies-->
+	<alias name="apparelCrossSellingProductReferenceTargetStrategy" alias="crossSellingProductReferenceTargetStrategy"/>
+	<bean id="apparelCrossSellingProductReferenceTargetStrategy"
+	      parent="defaultCrossSellingProductReferenceTargetStrategy">
+		<property name="productReferenceTargetStrategies">
+			<list merge="true">
+				<ref bean="pedraSizeProductReferenceTargetStrategy"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="pedraSizeProductReferenceTargetStrategy" scope="tenant"
+	      class="com.pedra.core.strategies.impl.PedraSizeProductReferenceTargetStrategy">
+		<property name="commerceCategoryService" ref="commerceCategoryService"/>
+		<property name="rootCategoryCode" value="categories"/>
+	</bean>
+	
+	<bean id="dynamicHybrisCustomerAttributeBean"
+      class="com.pedra.core.model.DynamicHybrisCustomerAttributeBean"
+      scope="tenant" />
+      
+   <bean id="mostSignificantProductBean"
+      class="com.pedra.core.model.MostSignificantProductHandler"
+      scope="tenant" />
+      
+    
+    <bean id="hybrisCategorySource" parent="abstractCategorySource">
+        <property name="rootCategory" value="1"/>
+    </bean>
+ 
+    <bean id="hybrisBrandCategorySource" parent="abstractCategorySource">
+        <property name="rootCategory" value="brands"/>
+    </bean>
+ 
+    <bean id="pedraCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+        <property name="categorySource" ref="hybrisCategorySource"/>
+    </bean>
+    <bean id="pedraBrandCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+        <property name="categorySource" ref="hybrisBrandCategorySource"/>
+    </bean>
+    <bean id="pedraCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+        <property name="categorySource" ref="hybrisCategorySource"/>
+    </bean>
+    <bean id="pedraBrandCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+        <property name="categorySource" ref="hybrisBrandCategorySource"/>
+    </bean>
+    
+    <bean id="pedraOrderRemoveInterceptor" class="com.pedra.core.interceptor.PedraOrderRemoveInterceptor" />
+    
+    <bean id="pedraOrderRemoveInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+    	<property name="interceptor" ref="pedraOrderRemoveInterceptor" />
+    	<property name="typeCode" value="Order" />
+	 </bean>
+    
+    <alias alias="commandFactoryRegistry" name="pedraCommandFactoryRegistry"/>
+    <bean name="pedraCommandFactoryRegistry" class="com.pedra.core.payment.commands.factory.impl.PedraCommandFactoryRegistryImpl" scope="tenant">
+    	<property name="commandFactoryList">
+			<list>
+				<ref bean="pedraCommandFactory"/>
+			</list>
+		</property>
+    </bean>
+    
+   <!-- Pedra Payment implementation -->
+	<bean name="pedraCommandFactory" class="de.hybris.platform.payment.commands.factory.impl.DefaultCommandFactoryImpl" scope="tenant">
+		<property name="paymentProvider" value="Pedra"/>
+		<property name="commands">
+			<map>
+				<entry>
+					<key>
+						<value type="java.lang.Class">de.hybris.platform.payment.commands.IsApplicableCommand</value>
+					</key>
+					<bean class="de.hybris.platform.payment.commands.impl.IsApplicableMockCommand" />
+				</entry>
+				<entry>
+					<key>
+						<value type="java.lang.Class">de.hybris.platform.payment.commands.AuthorizationCommand</value>
+					</key>
+					<bean class="com.pedra.core.payment.commands.impl.PedraAuthorizationCommandImpl" />
+				</entry>
+				<entry>
+					<key>
+						<value type="java.lang.Class">de.hybris.platform.payment.commands.SubscriptionAuthorizationCommand</value>
+					</key>
+					<bean class="de.hybris.platform.payment.commands.impl.SubscriptionAuthorizationMockCommand" />
+				</entry>
+				<entry>
+					<key>
+						<value type="java.lang.Class">de.hybris.platform.payment.commands.CaptureCommand</value>
+					</key>
+					<bean class="de.hybris.platform.payment.commands.impl.CaptureMockCommand" />
+				</entry>
+				<entry>
+					<key>
+						<value type="java.lang.Class">de.hybris.platform.payment.commands.PartialCaptureCommand</value>
+					</key>
+					<bean class="de.hybris.platform.payment.commands.impl.PartialCaptureMockCommand" />
+				</entry>
+				<entry>
+					<key>
+						<value type="java.lang.Class">de.hybris.platform.payment.commands.EnrollmentCheckCommand</value>
+					</key>
+					<bean class="de.hybris.platform.payment.commands.impl.EnrollmentCheckMockCommand" />
+				</entry>
+				<entry>
+					<key>
+						<value type="java.lang.Class">de.hybris.platform.payment.commands.VoidCommand</value>
+					</key>
+					<bean class="de.hybris.platform.payment.commands.impl.VoidMockCommand" />
+				</entry>
+				<entry>
+					<key>
+						<value type="java.lang.Class">de.hybris.platform.payment.commands.FollowOnRefundCommand</value>
+					</key>
+					<bean class="de.hybris.platform.payment.commands.impl.FollowOnRefundMockCommand" />
+				</entry>
+            <entry>
+					<key>
+                        <value type="java.lang.Class">de.hybris.platform.payment.commands.StandaloneRefundCommand</value>
+					</key>
+					<bean class="de.hybris.platform.payment.commands.impl.StandaloneRefundMockCommand" />
+				</entry>
+
+            <entry>
+					<key>
+                        <value type="java.lang.Class">de.hybris.platform.payment.commands.CreateSubscriptionCommand</value>
+					</key>
+					<bean class="de.hybris.platform.payment.commands.impl.CreateSubscriptionMockCommand" />
+				</entry>
+                <entry>
+					<key>
+                        <value type="java.lang.Class">de.hybris.platform.payment.commands.DeleteSubscriptionCommand</value>
+					</key>
+					<bean class="de.hybris.platform.payment.commands.impl.DeleteSubscriptionMockCommand" />
+				</entry>
+                <entry>
+					<key>
+                        <value type="java.lang.Class">de.hybris.platform.payment.commands.GetSubscriptionDataCommand</value>
+					</key>
+					<bean class="de.hybris.platform.payment.commands.impl.GetSubscriptionDataMockCommand" />
+				</entry>
+                <entry>
+					<key>
+                        <value type="java.lang.Class">de.hybris.platform.payment.commands.UpdateSubscriptionCommand</value>
+					</key>
+					<bean class="de.hybris.platform.payment.commands.impl.UpdateSubscriptionMockCommand" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+		
+	<bean name="reviewDisapprovedActionJob" class="com.pedra.core.workflow.ReviewDisapprovedActionJob" autowire="byName" scope="tenant"></bean>
+	<bean name="reviewApprovedActionJob" class="com.pedra.core.workflow.ReviewApprovedActionJob" autowire="byName" scope="tenant"></bean>
+
+	<bean id="cleanupCronJobsPerformable" parent="abstractGenericMaintenanceJobPerformable">
+		<property name="maintenanceCleanupStrategy">
+			<bean class="de.hybris.platform.jobs.maintenance.impl.CleanupCronJobStrategy">
+				<property name="modelService" ref="modelService"/>
+				<property name="typeService" ref="typeService" />
+				<property name="status">
+					<set>
+						<value type="de.hybris.platform.cronjob.enums.CronJobStatus">FINISHED</value>  
+      				<value type="de.hybris.platform.cronjob.enums.CronJobStatus">ABORTED</value>	
+					</set>
+				</property>
+				<property name="result">
+					<set>
+						<value type="de.hybris.platform.cronjob.enums.CronJobResult">SUCCESS</value>
+      				<value type="de.hybris.platform.cronjob.enums.CronJobResult">FAILURE</value>
+      				<value type="de.hybris.platform.cronjob.enums.CronJobResult">ERROR</value>
+					</set> 
+				</property>
+				<property name="excludedCronJobCodes" >
+					<set>
+					</set>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- Converters -->
+	<bean name="productPopularitySearchResultConverter" class="com.pedra.core.search.converter.ProductPopularitySearchResultConverter"
+			scope="tenant">		
+	</bean>
+	
+</beans>

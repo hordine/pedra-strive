@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/widgets.xsd">
+
+    <widget-extension widgetId="backofficeMainSlot">
+        <widget id="joelito-rock-perspective"
+            widgetDefinitionId="com.hybris.cockpitng.borderlayout" slotId="perspectives" title="Joelito Rock perspective"
+            template="false">
+            <widget id="pedrabackoffice-explorer-tree"
+                widgetDefinitionId="com.hybris.cockpitng.widgets.common.explorertree"
+                slotId="leftSlot" template="false">
+                <widget id="pedrabackoffice-tree-node-adapter"
+                    widgetDefinitionId="com.hybris.cockpitng.conditionevaluator"
+                    slotId="cockpitWidgetChildrenInvisible" template="false">
+                    <setting key="expression"
+                        value="#root instanceof T(com.hybris.cockpitng.tree.node.TypeNode)"
+                        type="String" />
+                    <setting key="socketDataType_$T"
+                        value="com.hybris.backoffice.navigation.NavigationNode" type="String" />
+                    <setting key="widgetStyleAttribute" value="" type="String" />
+                    <setting key="widgetStyleClass" value="" type="String" />
+                    <virtual-sockets />
+                </widget>
+                <widget id="pedrabackoffice-typecode-extractor"
+                    widgetDefinitionId="com.hybris.cockpitng.widgets.common.propextractor"
+                    slotId="cockpitWidgetChildrenInvisible" template="false">
+                    <setting key="expression" value="code" type="String" />
+                    <setting key="socketDataType_$T" value="java.lang.String"
+                        type="String" />
+                    <setting key="widgetStyleAttribute" value="" type="String" />
+                    <setting key="widgetStyleClass" value="" type="String" />
+                    <virtual-sockets />
+                </widget>
+                <setting key="config.context.perspective" value="joelito-rock"
+                    type="String" />
+                <setting key="widgetStyleAttribute" value="min-height: 30px; height:100%"
+                    type="String" />
+                <setting key="cacheTreemodel" value="true" type="Boolean" />
+                <setting key="widgetStyleClass" value="" type="String" />
+                <setting key="#cp_invisibleContainer_visible" value="true"
+                    type="String" />
+                <virtual-sockets />
+            </widget>
+            <widget id="pedrabackoffice-inner-layout"
+                widgetDefinitionId="com.hybris.cockpitng.borderlayout" slotId="centerSlot"
+                template="false">
+                <widget id="pedrabackoffice-text-search"
+                    widgetDefinitionId="com.hybris.cockpitng.textsearch" slotId="headerSlot"
+                    template="false">
+                    <widget id="pedrabackoffice-search-logic"
+                        widgetDefinitionId="com.hybris.cockpitng.widgets.common.simplesearch"
+                        slotId="cockpitWidgetChildrenInvisible" template="false">
+                        <setting key="widgetStyleAttribute" value="" type="String" />
+                        <setting key="widgetStyleClass" value="" type="String" />
+                        <setting key="pageSize" value="10" type="Integer" />
+                        <setting key="attributeOperator" value="equal" type="String" />
+                        <virtual-sockets />
+                    </widget>
+                    <widget id="pedrabackoffice-search-enabler"
+                        widgetDefinitionId="com.hybris.cockpitng.widgets.common.propextractor"
+                        slotId="cockpitWidgetChildrenInvisible" template="false">
+                        <setting key="expression" value="new Boolean(true)" type="String" />
+                        <setting key="socketDataType_$T" value="java.lang.Boolean"
+                            type="String" />
+                        <setting key="widgetStyleAttribute" value="" type="String" />
+                        <setting key="widgetStyleClass" value="" type="String" />
+                        <virtual-sockets />
+                    </widget>
+                    <widget id="pedrabackoffice-search-disabler"
+                        widgetDefinitionId="com.hybris.cockpitng.widgets.common.propextractor"
+                        slotId="cockpitWidgetChildrenInvisible" template="false">
+                        <setting key="expression" value="new Boolean(false)" type="String" />
+                        <setting key="socketDataType_$T" value="java.lang.Boolean"
+                            type="String" />
+                        <setting key="widgetStyleAttribute" value="" type="String" />
+                        <setting key="widgetStyleClass" value="" type="String" />
+                        <virtual-sockets />
+                    </widget>
+                    <setting key="widgetStyleAttribute" value="" type="String" />
+                    <setting key="widgetStyleClass" value="" type="String" />
+                    <setting key="enabledByDefault" value="false" type="Boolean" />
+                    <setting key="#cp_invisibleContainer_visible" value="true"
+                        type="String" />
+                    <virtual-sockets />
+                </widget>
+        			<widget id="pedrabackoffice-list" slotId="centerSlot" template="false" widgetDefinitionId="com.pedra.backoffice.widgets.pedralistwidget">
+                 	<widget id="pedrabackoffice-simple-list" slotId="simpleList" template="false" widgetDefinitionId="com.hybris.cockpitng.widgets.common.simplelist">
+                     <setting key="widgetStyleAttribute" type="String" value=""/>
+                     <setting key="widgetStyleClass" type="String" value=""/>
+                     <setting key="pageSize" type="Integer" value="10"/>
+                     <setting key="async" type="Boolean" value="true"/>
+                     <virtual-sockets/>
+                 	</widget>
+                 	<setting key="widgetStyleAttribute" type="String" value=""/>
+                 	<setting key="widgetStyleClass" type="String" value=""/>
+                 	<virtual-sockets/>
+         		</widget>
+                
+                <setting key="opaqueBG" value="true" type="String" />
+                <setting key="southHeight" value="50px" type="String" />
+                <setting key="widgetStyleAttribute" value="" type="String" />
+                <setting key="northHeight" value="65px" type="String" />
+                <setting key="westBorder" value="none" type="String" />
+                <setting key="northBorder" value="none" type="String" />
+                <setting key="eastDisabled" value="true" type="Boolean" />
+                <setting key="southBorder" value="none" type="String" />
+                <setting key="southDisabled" value="true" type="Boolean" />
+                <setting key="eastBorder" value="none" type="String" />
+                <setting key="eastWidth" value="25%" type="String" />
+                <setting key="northDisabled" value="false" type="Boolean" />
+                <setting key="westCollapsible" value="true" type="Boolean" />
+                <setting key="widgetStyleClass" value="" type="String" />
+                <setting key="southCollapsible" value="true" type="Boolean" />
+                <setting key="northCollapsible" value="true" type="Boolean" />
+                <setting key="border" value="none" type="String" />
+                <setting key="westWidth" value="300px" type="String" />
+                <setting key="centerBorder" value="none" type="String" />
+                <setting key="westDisabled" value="true" type="Boolean" />
+                <setting key="eastCollapsible" value="true" type="Boolean" />
+                <virtual-sockets />
+            </widget>
+            <setting key="opaqueBG" value="true" type="String" />
+            <setting key="southHeight" value="50px" type="String" />
+            <setting key="widgetStyleAttribute" value="" type="String" />
+            <setting key="northHeight" value="50px" type="String" />
+            <setting key="westBorder" value="none" type="String" />
+            <setting key="northBorder" value="none" type="String" />
+            <setting key="eastDisabled" value="true" type="Boolean" />
+            <setting key="southBorder" value="none" type="String" />
+            <setting key="southDisabled" value="true" type="Boolean" />
+            <setting key="eastBorder" value="none" type="String" />
+            <setting key="eastWidth" value="25%" type="String" />
+            <setting key="northDisabled" value="true" type="Boolean" />
+            <setting key="westCollapsible" value="true" type="Boolean" />
+            <setting key="widgetStyleClass" value="" type="String" />
+            <setting key="southCollapsible" value="true" type="Boolean" />
+            <setting key="northCollapsible" value="true" type="Boolean" />
+            <setting key="border" value="none" type="String" />
+            <setting key="westWidth" value="300px" type="String" />
+            <setting key="centerBorder" value="none" type="String" />
+            <setting key="eastCollapsible" value="true" type="Boolean" />
+            <setting key="perspectiveImageUrl" value="/cng/images/joelito_rock.png" type="String" />
+            <virtual-sockets />
+        </widget>
+    </widget-extension>
+
+    <widget-extension widgetId="backofficeMainSlot">
+    	<widget id="thundera-perspective"
+            widgetDefinitionId="com.hybris.cockpitng.borderlayout" slotId="perspectives" title="Thundera perspective"
+            template="false">
+	      <widget id="thundera-explorer-tree"
+            widgetDefinitionId="com.hybris.cockpitng.widgets.common.explorertree"
+            slotId="leftSlot" template="false">
+            <widget id="thundera-tree-node-adapter"
+                widgetDefinitionId="com.hybris.cockpitng.conditionevaluator"
+                slotId="cockpitWidgetChildrenInvisible" template="false">
+                <setting key="expression"
+                    value="#root instanceof T(com.hybris.cockpitng.tree.node.TypeNode)"
+                    type="String" />
+                <setting key="socketDataType_$T"
+                    value="com.hybris.backoffice.navigation.NavigationNode" type="String" />
+                <setting key="widgetStyleAttribute" value="" type="String" />
+                <setting key="widgetStyleClass" value="" type="String" />
+                <virtual-sockets />
+            </widget>
+            <widget id="thundera-typecode-extractor"
+                widgetDefinitionId="com.hybris.cockpitng.widgets.common.propextractor"
+                slotId="cockpitWidgetChildrenInvisible" template="false">
+                <setting key="expression" value="code" type="String" />
+                <setting key="socketDataType_$T" value="java.lang.String"
+                    type="String" />
+                <setting key="widgetStyleAttribute" value="" type="String" />
+                <setting key="widgetStyleClass" value="" type="String" />
+                <virtual-sockets />
+            </widget>
+            <setting key="config.context.perspective" value="thundera" type="String" />
+            <setting key="widgetStyleAttribute" value="min-height: 30px; height:100%" type="String" />
+            <setting key="cacheTreemodel" value="true" type="Boolean" />
+            <setting key="widgetStyleClass" value="" type="String" />
+            <setting key="#cp_invisibleContainer_visible" value="true" type="String" />
+            <virtual-sockets />
+    	  </widget>
+    	
+			<widget id="thundera-center-layout" widgetDefinitionId="com.hybris.cockpitng.borderlayout" slotId="centerSlot" template="false">
+				<widget id="thundera-center-widget" widgetDefinitionId="com.pedra.backoffice.widgets.pedrabackofficewidget"
+						slotId="headerSlot" template="false"  title="Thundera perspective"> 					           
+				</widget>
+				<widget id="thundera-search-enabler"
+				    widgetDefinitionId="com.hybris.cockpitng.widgets.common.propextractor"
+				    slotId="cockpitWidgetChildrenInvisible" template="false">
+				    <setting key="expression" value="new Boolean(true)" type="String" />
+				    <setting key="socketDataType_$T" value="java.lang.Boolean"
+				        type="String" />
+				    <setting key="widgetStyleAttribute" value="" type="String" />
+				    <setting key="widgetStyleClass" value="" type="String" />
+				    <virtual-sockets />
+				</widget>
+				<widget id="thundera-search-disabler"
+				    widgetDefinitionId="com.hybris.cockpitng.widgets.common.propextractor"
+				    slotId="cockpitWidgetChildrenInvisible" template="false">
+				    <setting key="expression" value="new Boolean(false)" type="String" />
+				    <setting key="socketDataType_$T" value="java.lang.Boolean"
+				        type="String" />
+				    <setting key="widgetStyleAttribute" value="" type="String" />
+				    <setting key="widgetStyleClass" value="" type="String" />
+				    <virtual-sockets />
+				</widget>
+				
+				<widget id="thundera-list" slotId="centerSlot" template="false" widgetDefinitionId="com.pedra.backoffice.widgets.thunderalistwidget">
+               	<widget id="thundera-simple-list" slotId="simpleList" template="false" widgetDefinitionId="com.hybris.cockpitng.widgets.common.simplelist">
+                     <setting key="widgetStyleAttribute" type="String" value=""/>
+                     <setting key="widgetStyleClass" type="String" value=""/>
+                     <setting key="pageSize" type="Integer" value="10"/>
+                     <setting key="async" type="Boolean" value="true"/>
+                     <virtual-sockets/>
+                 	</widget>        
+         	</widget>
+				<setting key="opaqueBG" value="true" type="String" />
+				<setting key="southHeight" value="50px" type="String" />
+				<setting key="widgetStyleAttribute" value="" type="String" />
+				<setting key="northHeight" value="65px" type="String" />
+				<setting key="westBorder" value="none" type="String" />
+				<setting key="northBorder" value="none" type="String" />
+				<setting key="eastDisabled" value="true" type="Boolean" />
+				<setting key="southBorder" value="none" type="String" />
+				<setting key="southDisabled" value="true" type="Boolean" />
+				<setting key="eastBorder" value="none" type="String" />
+				<setting key="eastWidth" value="25%" type="String" />
+				<setting key="northDisabled" value="false" type="Boolean" />
+				<setting key="westCollapsible" value="true" type="Boolean" />
+				<setting key="widgetStyleClass" value="" type="String" />
+				<setting key="southCollapsible" value="true" type="Boolean" />
+				<setting key="northCollapsible" value="true" type="Boolean" />
+				<setting key="border" value="none" type="String" />
+				<setting key="westWidth" value="300px" type="String" />
+				<setting key="centerBorder" value="none" type="String" />
+				<setting key="westDisabled" value="true" type="Boolean" />
+				<setting key="eastCollapsible" value="true" type="Boolean" />
+				<virtual-sockets />         	
+			</widget>
+
+        <setting key="perspectiveImageUrl" value="/cng/images/pedrathundera.png"
+                type="String" />
+      </widget>
+    </widget-extension>
+
+    <widget-connection sourceWidgetId="pedrabackoffice-explorer-tree" outputId="nodeSelected" targetWidgetId="pedrabackoffice-tree-node-adapter" inputId="input"/>
+    <widget-connection sourceWidgetId="pedrabackoffice-tree-node-adapter" outputId="true" targetWidgetId="pedrabackoffice-typecode-extractor" inputId="genericInput"/>
+    <widget-connection sourceWidgetId="pedrabackoffice-tree-node-adapter" outputId="true" targetWidgetId="pedrabackoffice-search-enabler" inputId="genericInput"/>
+    <widget-connection sourceWidgetId="pedrabackoffice-tree-node-adapter" outputId="false" targetWidgetId="pedrabackoffice-search-disabler" inputId="genericInput"/>
+    <widget-connection sourceWidgetId="pedrabackoffice-typecode-extractor" outputId="genericOutput" targetWidgetId="pedrabackoffice-search-logic" inputId="type"/>
+    <widget-connection sourceWidgetId="pedrabackoffice-search-enabler" outputId="genericOutput" targetWidgetId="pedrabackoffice-text-search" inputId="enabled"/>
+    <widget-connection sourceWidgetId="pedrabackoffice-search-disabler" outputId="genericOutput" targetWidgetId="pedrabackoffice-text-search" inputId="enabled"/>
+    <widget-connection sourceWidgetId="pedrabackoffice-text-search" outputId="query" targetWidgetId="pedrabackoffice-search-logic" inputId="searchtext"/>
+    <widget-connection sourceWidgetId="pedrabackoffice-search-logic" outputId="pageable" targetWidgetId="pedrabackoffice-simple-list" inputId="pageable"/>
+    <widget-connection sourceWidgetId="pedrabackoffice-search-enabler" outputId="genericOutput" targetWidgetId="pedrabackoffice-list" inputId="enabled" />
+    <widget-connection sourceWidgetId="pedrabackoffice-search-disabler" outputId="genericOutput" targetWidgetId="pedrabackoffice-list" inputId="enabled" />
+    <widget-connection sourceWidgetId="pedrabackoffice-typecode-extractor" outputId="genericOutput" targetWidgetId="pedrabackoffice-list" inputId="type" />
+	 <widget-connection sourceWidgetId="thundera-explorer-tree" outputId="nodeSelected" targetWidgetId="thundera-tree-node-adapter" inputId="input"/>
+	 <widget-connection sourceWidgetId="thundera-tree-node-adapter" outputId="true" targetWidgetId="thundera-typecode-extractor" inputId="genericInput"/>
+	 <widget-connection sourceWidgetId="thundera-typecode-extractor" outputId="genericOutput" targetWidgetId="thundera-list" inputId="type"/>
+	 <widget-connection sourceWidgetId="thundera-tree-node-adapter" outputId="true" targetWidgetId="thundera-search-enabler" inputId="genericInput"/>
+    <widget-connection sourceWidgetId="thundera-tree-node-adapter" outputId="false" targetWidgetId="thundera-search-disabler" inputId="genericInput"/>
+	 <widget-connection sourceWidgetId="thundera-search-enabler" outputId="genericOutput" targetWidgetId="thundera-list" inputId="enabled"/>
+    <widget-connection sourceWidgetId="thundera-search-disabler" outputId="genericOutput" targetWidgetId="thundera-list" inputId="enabled"/>
+</widgets>

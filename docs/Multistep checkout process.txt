@@ -1,0 +1,42 @@
+PlaceOrderForm	comes from the frontend page:
+
+MultiStepCheckoutController.placeOrder()
+	validateOrderForm(placeOrderForm, model)
+		// uses GlobalMessages.addErrorMessage to add validation error messages;
+	getCheckoutFacade().authorizePayment(placeOrderForm.getSecurityCode()); //PedraCheckoutFacadeImpl
+		PaymentTransactionEntryModel paymentTransactionEntryModel = getCommerceCheckoutService().authorizePayment(cartModel, securityCode, getPaymentProvider()); // PedraCommerceCheckoutServiceImpl
+			Currency currency = getI18nService().getBestMatchingJavaCurrency(cartModel.getCurrency().getIsocode());
+			String merchantTransactionCode = this.generateMerchantTransactionCodeStrategy.generateCode(cartModel);
+			transactionEntryModel = getPaymentService().authorize(merchantTransactionCode, amount, currency, cartModel.getDeliveryAddress(), 
+									((CreditCardPaymentInfoModel)paymentInfo).getSubscriptionId(), securityCode, paymentProvider);
+				BillingInfo shippingInfo = createBillingInfo(deliveryAddress);
+				return authorizeInternal(transaction, amount, currency, shippingInfo, null, subscriptionID, cv2, paymentProvider);
+					if (subscriptionID == null)
+						getCardPaymentService().authorize(new AuthorizationRequest(newEntryCode, card, currency, amount, shippingInfo));
+							CommandFactory commandFactory = this.commandFactoryRegistry.getFactory(request.getCard(), false); commandFactoryRegistry = DefaultCommandFactoryRegistryImpl
+								// commandFactoryList = getBeansOfType(CommandFactory.class).values()
+							AuthorizationCommand command = (AuthorizationCommand)commandFactory.createCommand(AuthorizationCommand.class); AuthorizationCommand = 
+								// PedraAuthorizationCommand
+							AuthorizationResult result = (AuthorizationResult)command.perform(request);
+							result.setPaymentProvider(commandFactory.getPaymentProvider());
+					else
+						result = getCardPaymentService().authorize(new SubscriptionAuthorizationRequest(newEntryCode, subscriptionID, currency, amount, shippingInfo, cv2, paymentProvider));
+				
+	getCheckoutFacade().placeOrder();
+		return getCommerceCheckoutService().placeOrder(cartModel);
+			getOrderService().createOrderFromCart(cartModel);
+				getOrderService().submitOrder(orderModel);
+					submitOrderStrategies.submitOrder(order); : <bean id="eventPublishingSubmitOrderStrategy" class="de.hybris.platform.order.strategies.impl.EventPublishingSubmitOrderStrategy">
+						EventPublishingSubmitOrderStrategy creates a SubmitOrderEvent
+							SubmitOrderEventListener
+								final OrderProcessModel businessProcessModel = (OrderProcessModel) getBusinessProcessService().createProcess(processCode, fulfilmentProcessDefinitionName);								
+								businessProcessModel.setOrder(order);
+								getModelService().save(businessProcessModel);
+								getBusinessProcessService().startProcess(businessProcessModel);
+									// The Base Store has an orderProcessCode set to order-process
+
+
+
+generates a business process orderConfirmationEmailProcess-00003001-1387271474532
+		
+		

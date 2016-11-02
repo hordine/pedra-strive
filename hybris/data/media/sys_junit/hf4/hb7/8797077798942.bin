@@ -1,0 +1,7 @@
+Dear ${ctx.name},
+
+A new ticket has been created with reference ${ctx.ticketId}.
+
+Please quote this reference in all emails and communications with.
+
+Thank you.

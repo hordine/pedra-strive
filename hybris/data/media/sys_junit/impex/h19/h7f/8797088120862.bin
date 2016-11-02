@@ -1,0 +1,11 @@
+
+#
+# Create the Merchandise Product Catalog
+#
+# ENGLISH LOCALIZATION
+#
+$lang=en
+$productCatalog=pedraProductCatalog
+ 
+UPDATE Catalog;id[unique=true];name[lang=$lang]
+;$productCatalog;"pedra Product Catalog"

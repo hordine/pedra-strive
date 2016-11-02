@@ -1,0 +1,32 @@
+# ImpEx for Apparel DE Stores
+# German localisations
+
+$lang=de
+$standardHours=apparel-de-standard-hours
+$weekendHours=apparel-de-weekend-hours
+
+UPDATE StoreLocatorFeature;code[unique=true];name[lang=$lang]
+;wheelchair;"Rollstuhlzugang"
+;creche;"Kinderkrippe"
+;sundayWorkshops;"Sonntagsworkshops"
+
+UPDATE SpecialOpeningDay;openingSchedule(code)[unique=true];date[unique=true,dateformat=dd.MM.yyyy];name[lang=$lang];message[lang=$lang]
+;$standardHours; 01.01.2013 ;"NeujahrstagNew";""
+;$standardHours; 29.03.2013 ;"Karfreitag";""
+;$standardHours; 01.04.2013 ;"Ostermontag";""
+;$standardHours; 01.05.2013 ;"Tag der Arbeit";""
+;$standardHours; 09.05.2013 ;"Christi Himmelfahrt";""
+;$standardHours; 20.05.2013 ;"Pfingstmontag";""
+;$standardHours; 03.10.2013 ;"Tag der Deutschen Einheit";""
+;$standardHours; 25.12.2013 ;"Weihnachtstag";""
+;$standardHours; 26.12.2013 ;"Zweiter Weihnachtsfeiertag";""
+
+;$weekendHours; 01.01.2013 ;"NeujahrstagNew";""
+;$weekendHours; 29.03.2013 ;"Karfreitag";""
+;$weekendHours; 01.04.2013 ;"Ostermontag";""
+;$weekendHours; 01.05.2013 ;"Tag der Arbeit";""
+;$weekendHours; 09.05.2013 ;"Christi Himmelfahrt";""
+;$weekendHours; 20.05.2013 ;"Pfingstmontag";""
+;$weekendHours; 03.10.2013 ;"Tag der Deutschen Einheit";""
+;$weekendHours; 25.12.2013 ;"Weihnachtstag";""
+;$weekendHours; 26.12.2013 ;"Zweiter Weihnachtsfeiertag";""

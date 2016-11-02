@@ -1,0 +1,3 @@
+Dear ${ctx.name},
+
+The following ticket has been assigned to you: ${ctx.ticketId}

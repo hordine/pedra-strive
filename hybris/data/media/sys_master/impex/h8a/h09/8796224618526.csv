@@ -1,0 +1,4 @@
+
+update RelationDescriptor;enclosingType(code)[unique=true];qualifier[unique=true];unique
+,,no existing item found for update;ReviewToUserRel;user;false
+,,no existing item found for update;ReviewToProductRel;product;false

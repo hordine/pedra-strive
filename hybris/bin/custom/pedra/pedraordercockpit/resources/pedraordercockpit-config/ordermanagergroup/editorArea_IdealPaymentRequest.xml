@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editor>
+    <group qualifier="General" visible="true" initially-opened="true">
+        <label key="pedraordercockpit.config.label.properties"/>
+        <property qualifier="IdealPaymentRequest.orderCode"/>
+        <property qualifier="IdealPaymentRequest.requestTime"/>
+        <property qualifier="IdealPaymentRequest.apiResult" visible="false"/>
+    </group>
+    
+    <group qualifier="payments" visible="true" initially-opened="false">
+        <label key="pedraordercockpit.config.label.payments"/>
+        <!-- <property qualifier="PaymentRequest.responses" /> -->
+    </group>
+  
+</editor>

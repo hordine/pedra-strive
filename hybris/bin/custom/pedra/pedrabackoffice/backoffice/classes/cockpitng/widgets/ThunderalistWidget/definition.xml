@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<widget-definition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/widget-definition.xsd"
+id="com.pedra.backoffice.widgets.thunderalistwidget">
+    <name>Thundera List</name>
+    <description>Wraps simple list widget</description>
+    <defaultTitle>Thundera List</defaultTitle>
+    <author>Henrique Ordine</author>
+    <version>1.0</version>
+    <keywords>
+        <keyword>List</keyword>
+    </keywords>
+    <view src="thunderalistwidget.zul"/>
+    <controller class="com.pedra.backoffice.widgets.ThunderaListController"/>
+    <sockets>
+        <input type="java.lang.Boolean" id="enabled"/>
+        <input type="java.lang.String" id="type"/>
+        <output type="java.lang.String" id="create"/>
+    </sockets>
+</widget-definition>

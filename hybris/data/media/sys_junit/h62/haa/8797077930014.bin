@@ -1,0 +1,5 @@
+Dear ${ctx.name},
+
+The following message referencing ticket ${ctx.ticketId} has been written:
+
+${ctx.text}

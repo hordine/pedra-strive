@@ -1,0 +1,86 @@
+$contentCatalog=pedraContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$picture=media(code, $contentCV);
+ 
+$siteResource=jar:com.pedra.initialdata.setup.InitialDataSystemSetup&/pedrainitialdata/import/contentCatalogs/$contentCatalog
+ 
+ 
+# Language
+$lang=en
+ 
+# CMS Image Components
+UPDATE CMSImageComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+;;SiteLogoImage;/images/theme/logo-pedra.jpg
+ 
+# CMS Link Components
+UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang]
+;;HomepageNavLink;"Home"
+;;HardRockCategoryLink;"Hard Rock"
+;;SoftRockCategoryLink;"Soft Rock"
+ 
+# Lightbox Banner for Mini Cart
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpg'];altText;&imageRef
+;;Pedra_290x45_HomeDeliveryBanner_EN_01.gif;$siteResource/images/banners/site/Pedra_290x45_HomeDeliveryBanner_EN_01.gif;;"Order before 6pm for next day delivery";Pedra_290x45_HomeDeliveryBanner_EN_01.gif
+ 
+UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+;;LightboxHomeDeliveryBannerComponent;Pedra_290x45_HomeDeliveryBanner_EN_01.gif
+ 
+# CMS Mini Cart Component
+UPDATE MiniCartComponent;$contentCV[unique=true];uid[unique=true];name;title[lang=$lang]
+;;MiniCart;Mini Cart;YOUR SHOPPING BASKET
+ 
+# CMS tabs components
+UPDATE CMSTabParagraphComponent;$contentCV[unique=true];uid[unique=true];title[lang=$lang];content[lang=$lang]
+;;deliveryTab;Delivery;"<table border=""0"" cellspacing=""0"" cellpadding=""10"" style=""border-collapse: collapse; empty-cells: show; font-size: 12px; padding: 0px; margin: 0px; border: 0px initial initial;""><tbody><tr style=""padding: 0px; margin: 0px;""><td colspan=""4"" style=""vertical-align: top; text-align: left; font-weight: normal; padding: 0px; margin: 0px;""><div style=""padding-top: 10px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #8edf75; height: 30px; border-top-width: 1px; border-top-style: solid; border-top-color: #8edf75; margin: 0px;""><strong style=""font-weight: bold; padding: 0px; margin: 0px;""><span style=""color: #285190; font-size: 14px; padding: 0px; margin: 0px;"">Shipping and Delivery</span></strong></div></td></tr><tr style=""padding: 0px; margin: 0px;""><td colspan=""4"" style=""vertical-align: top; text-align: left; font-weight: normal; padding: 0px; margin: 0px;""><strong style=""font-weight: bold; padding: 0px; margin: 0px;""><br />2.1 How much is my shipping cost?<br /></strong>Shipping is absolutely free for all products shipped within the Continental US. Shipping is free for all products except binoculars and telescopes shipped to Alaska, Hawaii, Puerto Rico, Guam and APO addresses. For more details, please click here.<br /><br /><strong style=""font-weight: bold; padding: 0px; margin: 0px;"">2.2 How will my order ship?<br /></strong>Telescopes and Binoculars are shipped within the continental US via UPS or Fedex Ground service with tracking and full insurance.<br /><br />All other items are shipped via USPS (US Postal Service). Depending on your order, domestic US orders will ship via First Class mail (packages weighing 13oz or less), Priority mail (packages weighing over 13oz), Media mail (Charts, software or books), or a combination thereof. Delivery confirmation is included for most orders at no extra charge. However, insurance is optional.<br /><br /><strong style=""font-weight: bold; padding: 0px; margin: 0px;"">2.3 When will my order ship?</strong><br />We usually ship orders everyday from Mon-Fri. Orders received by 9am PT (12noon ET) will usually ship on the same day.<br /><br /><strong style=""font-weight: bold; padding: 0px; margin: 0px;"">2.4 Has my order shipped?</strong><br />You will receive an automatic e-mail notification when your order ships. If you create an online account with us, you can also log into your account at any time to view its status. If there is any problem or delay with your order, we will contact you promptly.<br /><br /><strong style=""font-weight: bold; padding: 0px; margin: 0px;"">2.5 When will I receive my order?</strong><br />For items shipped directly via US Postal Service (USPS) from our location in California:<br /><br />Delivery time will vary depending on the shipping method used (see ""How will my order ship?"" above) and your proximity to our location in Los Angeles, CA.<br /><br />* First Class Mail: 3 - 5 business days<br />* Priority Mail: 2 - 3 business days<br />* Express Mail: 1 business day<br />* Media Mail: 4 - 10 business days<br /><br />Note that these are typical delivery timelines and are NOT guaranteed by the USPS. In shipping thousands of orders over 5+ years, our experience has been that about 95% of orders arrive within this timeline. However, delays of up to 2-3 weeks can occur every now and then, even for priority mail service. In case of delays, please understand that once we ship your order from our local post office, there is nothing we can do but wait for the USPS to deliver your package to you.</td></tr></tbody></table>"
+ 
+# CMS Footer Component
+UPDATE FooterComponent;$contentCV[unique=true];uid[unique=true];notice[lang=$lang]
+;;FooterComponent;© 2012 hybris software - hybris trail
+ 
+# CMS Paragraph Component (Contact information)
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];content[lang=$lang]
+;;contactInfo;"Call us: +1 302 295 5067"
+ 
+ 
+# CMS ProductReferences Components
+UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];title[lang=$lang]
+;;accessories;Accessories
+;;CrossSelling;You may also like...
+;;Others;Accessories
+;;Similar;You may also like...
+ 
+UPDATE PurchasedProductReferencesComponent;$contentCV[unique=true];uid[unique=true];title[lang=$lang]
+;;PurchasedCategoryCrossSelling;You may also like...
+ 
+# Category Pages
+UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];title[lang=$lang]
+;;HardRock;HardRock
+;;SoftRock;SoftRock
+ 
+# CMS Navigation Nodes
+UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang]
+;;HybrisSiteRootNode;HybrisSiteRoot
+;;HybrisNavNode;Pedra Site
+;;SoftRockNavNode;SoftRock
+;;HardRockNavNode;HardRock
+ 
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];content[lang=$lang]
+;;NoSearchResultsParagraphComponent;"<h2>Sorry, we couldn't find any results for your search</h2>
+<p>Suggestions</p>
+<ul>
+<li>You may have typed your word incorrectly - please check for misspellings</li>
+<li>You may have been too specific - please broaden your search by using fewer keywords</li>
+<li>Browse our products by selecting a category above</li>
+</ul>"
+ 
+###### Hybris Cart Page ######
+ 
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpg'];altText
+;;Pedra_788x120_HomeDeliveryBanner_EN_01.jpg;$siteResource/images/banners/site/Pedra_788x120_HomeDeliveryBanner_EN_01.jpg;;"Order before 6pm for next day delivery"
+;;Pedra_148x300_HelpBanner_EN_01.jpg;$siteResource/images/banners/site/Pedra_148x300_HelpBanner_EN_01.jpg;;"Need Help? Click here for help with checking out"
+ 
+UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+;;NextDayDeliveryBanner120;Pedra_788x120_HomeDeliveryBanner_EN_01.jpg
+ 
+UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];content[lang=$lang];content[lang=nl]
+;;welcomeMessage;"<h1>Welcome to the Pedra Shop</h1>";"<h1>Welkom bij de Pedrawinkel</h1>"

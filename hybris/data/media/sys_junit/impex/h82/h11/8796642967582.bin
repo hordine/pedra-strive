@@ -1,0 +1,451 @@
+##############VARIABLES#####################################
+$contentCatalog=electronicsContentCatalog
+$contentCatalogName=Electronics Content Catalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCatalog=electronicsProductCatalog
+$productCatalogName=Electronics Product Catalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$picture=media(code, $contentCV);
+$image=image(code, $contentCV);
+$media=media(code, $contentCV);
+$page=page(uid, $contentCV);
+$contentPage=contentPage(uid, $contentCV);
+$siteResource=jar:de.hybris.platform.acceleratorsampledata.constants.AcceleratorSampleDataConstants&/acceleratorsampledata/import/contentCatalogs/$contentCatalog
+$productResource=jar:de.hybris.platform.acceleratorsampledata.constants.AcceleratorSampleDataConstants&/acceleratorsampledata/import/productCatalogs/$productCatalog
+$jarResourceCms=jar:de.hybris.platform.acceleratorsampledata.constants.AcceleratorSampleDataConstants&/acceleratorsampledata/import/cockpits/cmscockpit
+#################################################################
+
+
+# CMS Site Settings
+UPDATE CMSSite;uid[unique=true];defaultPreviewCategory(code, $productCV);defaultPreviewProduct(code, $productCV)
+;electronics;575;2053367
+
+# Site Logo
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];altText;folder(qualifier)[default='images']
+;;/images/theme/logo-hybris.png;logo-hybris.png;$siteResource/images/theme/logo-hybris.png;image/png;hybris Accelerator
+;;/images/theme/mobilelogo-hybris.png;mobilelogo-hybris.png;$siteResource/images/theme/mobilelogo-hybris.png;image/png;Mobile Hybris Accelerator
+
+# Site Logo Component
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;MobileSiteLogoComponent;MobileSite Logo Component;MobileSiteLogoComponent;"/"
+
+# CMS Link Components
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&linkRef;&componentRef;target(code)[default='sameWindow'];styleAttributes
+;;MobileAccountLink;Account Link;"/my-account";MobileAccountLink;MobileAccountLink;;
+;;MobileStoresLink;Store Finder;"/store-finder";MobileStoresLink;MobileStoresLink;;
+;;MobileHomeFooterLink;Home Footer Link;"/";MobileHomeFooterLink;MobileHomeFooterLink;;data-icon="custom ui-icon-custom-home" data-transition="slide"
+;;MobileStoreFooterLink;Store Footer Link;"/store-finder";MobileStoreFooterLink;MobileStoreFooterLink;;data-icon="custom ui-icon-custom-stores" data-transition="slidedown"
+;;MobileCartFooterLink;Cart Footer Link;"/cart";MobileCartFooterLink;MobileCartFooterLink;;data-icon="custom ui-icon-custom-cart" data-transition="slidedown"
+;;MobileConnectFooterLink;Connect Footer Link;"javascript:void(0)";MobileConnectFooterLink;MobileConnectFooterLink;;id="connect-button" data-icon="custom ui-icon-custom-connect"
+
+
+# Lightbox Banner for Mini Cart
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;MobileLightboxHomeDeliveryBannerComponent;Lightbox Home Delivery Banner Component;MobileLightboxHomeDeliveryBannerComponent;
+
+# CMS Mini Cart Component
+INSERT_UPDATE MiniCartComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;totalDisplay(code);shownProductCount;lightboxBannerComponent(&componentRef)
+;;MobileMiniCart;Mobile Mini Cart;MobileMiniCart;SUBTOTAL;3;MobileLightboxHomeDeliveryBannerComponent
+
+# Navigation Bar Component
+INSERT_UPDATE NavigationBarComponent;$contentCV[unique=true];uid[unique=true];name;wrapAfter;link(uid, $contentCV);styleClass;&componentRef
+;;MobileCamerasBarComponent;Cameras Bar Component;10;CamerasCategoryLink;;MobileCamerasBarComponent
+;;MobileComponentsBarComponent;Components Bar Component;10;ComponentsCategoryLink;;MobileComponentsBarComponent
+;;MobileDigitalCamerasBarComponent;Digital Cameras Bar Component;10;DigitalCamerasCategoryLink;;MobileDigitalCamerasBarComponent
+;;MobileFilmCamerasBarComponent;Film Cameras Bar Component;10;FilmCamerasCategoryLink;;MobileFilmCamerasBarComponent
+;;MobileCameraAccessoriesBarComponent;Camera Accessories BarComponent;10;CameraAccessoriesCategoryLink;;MobileCameraAccessoriesBarComponent
+;;MobilePowerSuppliesBarComponent;Power Supplies Bar Component;10;PowerSuppliesCategoryLink;;MobilePowerSuppliesBarComponent
+;;MobileFlashMemoryBarComponent;Flash Memory Bar Component;10;FlashMemoryCategoryLink;;MobileFlashMemoryBarComponent
+;;MobileHandheldCamcordersBarComponent;Handheld Camcorders Bar Component;10;HandheldCamcordersCategoryLink;;MobileHandheldCamcordersBarComponent
+;;MobileSpecialOffersBarComponent;Special Offers Bar Component;10;SpecialOffersLink;special_offer;MobileSpecialOffersBarComponent
+
+INSERT_UPDATE NavigationBarComponent;$contentCV[unique=true];uid[unique=true];name;wrapAfter;navigationNode(&nodeRef);link(uid, $contentCV);styleClass;dropDownLayout(code);&componentRef
+;;MobileBrandsBarComponent;All Brands;10;MobileBrandsNavNode;AllBrandsCategoryLink;;AUTO;MobileBrandsBarComponent
+
+# CMS tabs components
+INSERT_UPDATE CMSTabParagraphComponent;$contentCV[unique=true];uid[unique=true];name;visible;&componentRef
+;;MobiledeliveryTab;Delivery tab;true;MobiledeliveryTab
+
+INSERT_UPDATE CMSTabParagraphContainer;$contentCV[unique=true];uid[unique=true];name;visible;simpleCMSComponents(uid, $contentCV);&componentRef
+;;MobileTabPanelContainer;Tab container;true;MobiledeliveryTab;MobileTabPanelContainer
+
+# CMS Footer Component
+INSERT_UPDATE FooterComponent;$contentCV[unique=true];uid[unique=true];wrapAfter;&componentRef
+;;MobileFooterComponent;2;MobileFooterComponent
+;;MobileNavContent;2;MobileNavContent
+
+# CMS Paragraph Component (Contact information)
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;MobileContactInfo;Contact information;MobileContactInfo
+
+# CMS SubCategoryList Component
+INSERT_UPDATE SubCategoryListComponent;$contentCV[unique=true];uid[unique=true];&componentRef
+;;MobileSubCategoryListComponent;SubCategoryListComponent
+
+# CMS ProductReferences Components
+INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;&componentRef
+;;MobileAccessories;Accessories;ACCESSORIES;5;MobileAccessories
+;;MobileCrossSelling;Cross Selling;CROSSELLING;5;MobileCrossSelling
+;;MobileOthers;MobileOthers;OTHERS;5;MobileOthers
+;;MobileSimilar;MobileSimilar;SIMILAR;5;MobileSimilar
+
+# Content Slots
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid, $contentCV)
+;;MobileSiteLogoSlot;MobileSiteLogoComponent
+;;MobileHomepageNavLinkSlot;HomepageNavLink
+;;MobileMiniCartSlot;MobileMiniCart
+;;MobileNavigationBarSlot;MobileBrandsBarComponent,MobileDigitalCamerasBarComponent,MobileFilmCamerasBarComponent,MobileHandheldCamcordersBarComponent,MobilePowerSuppliesBarComponent,MobileFlashMemoryBarComponent,MobileCameraAccessoriesBarComponent,MobileSpecialOffersBarComponent
+;;MobileNavigationMenuBarSlot;MobileBrandsBarComponent,MobileDigitalCamerasBarComponent,MobileFilmCamerasBarComponent,MobileHandheldCamcordersBarComponent,MobilePowerSuppliesBarComponent,MobileFlashMemoryBarComponent,MobileCameraAccessoriesBarComponent,MobileSpecialOffersBarComponent
+;;MobileTabsSlot;MobileTabPanelContainer
+;;MobileFooterSlot;MobileFooterComponent
+;;MobileHeaderLinksSlot;MobileContactInfo
+;;MobileUpSellingSlot;MobileSimilar
+;;MobileCrossSellingSlot;MobileAccessories
+;;MobileNavContentSlot;MobileNavContent
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images']
+;;MobileCamerasPagePreview;text/png;CamerasPage.png;$jarResourceCms/preview-images/electronics/MobileCamerasPage.png
+;;MobileDigitalCamerasPagePreview;text/png;DigitalCamerasPage.png;$jarResourceCms/preview-images/electronics/MobileDigitalCamerasPage.png
+;;MobileCameraAccessoriesPagePreview;text/png;CameraAccessoriesPage.png;$jarResourceCms/preview-images/electronics/MobileCameraAccessoriesPage.png
+
+# Category Page Restrictions
+INSERT_UPDATE CMSCategoryRestriction;$contentCV[unique=true];uid[unique=true];name;categories(code, $productCV)
+;;MobileCameras-LandingPageRestriction;Restriction for Cameras page;571
+;;MobileDigitalCameras-LandingPageRestriction;Restriction for Digital Cameras page;575
+
+# Category Pages
+INSERT_UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved'];previewImage(code, $contentCV);restrictions(uid,$contentCV)[default='MobileExperienceRestriction'];onlyOneRestrictionMustApply[default='false']
+;;mobile-Cameras;Cameras;MobileProductListPageTemplate;false;;MobileCamerasPagePreview;MobileExperienceRestriction,MobileCameras-LandingPageRestriction
+;;mobile-DigitalCameras;Digital Cameras;MobileProductListPageTemplate;false;;MobileDigitalCamerasPagePreview;MobileExperienceRestriction,MobileDigitalCameras-LandingPageRestriction
+
+# CMS Navigation Nodes #
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;children(uid,$contentCV)[mode=append]
+;root;;root;;
+
+# CMS Navigation Nodes
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(uid, $contentCV);&nodeRef
+;MobileSiteRootNode;;MobileSiteRootNode;root;;MobileSiteRootNode
+;MobileElectronicsNavNode;;Electronics Site;MobileSiteRootNode;HomepageNavLink;MobileElectronicsNavNode
+;MobileBrandsNavNode;;Brand Links;MobileElectronicsNavNode;AllBrandsCategoryLink;MobileBrandsNavNode
+;MobileBrandLinksNavNode;;Brand Links;MobileBrandsNavNode;CanonBrandCategoryLink,SonyBrandCategoryLink,KodakBrandCategoryLink,SamsungBrandCategoryLink,ToshibaBrandCategoryLink,FujifilmBrandCategoryLink;MobileBrandLinksNavNode
+;MobileAccessoryBrandLinksNavNode;;Accessory Brand Links;MobileBrandsNavNode;KingstonBrandCategoryLink,IciduBrandCategoryLink,TDKBrandCategoryLink,SweexBrandCategoryLink;MobileAccessoryBrandLinksNavNode
+;MobileDigitalCamerasNavNode;;Digital Cameras Category;MobileCamerasNavNode;DigitalCamerasCategoryLink;MobileDigitalCamerasNavNode
+;MobileCamerasNavNode;;Cameras Category;MobileElectronicsNavNode;DigitalCamerasCategoryLink,FilmCamerasCategoryLink;MobileCamerasNavNode
+;MobileFilmCamerasNavNode;;Film Cameras Category;MobileCamerasNavNode;FilmCamerasCategoryLink;MobileFilmCamerasNavNode
+;MobileWebcamsNavNode;;Webcams Category;MobileCamerasNavNode;;MobileWebcamsNavNode
+;MobileCameraAccessoriesNavNode;;Camera Accessories Category;MobileCamerasNavNode;CameraAccessoriesCategoryLink;MobileCameraAccessoriesNavNode
+;MobileHandheldCamcordersNavNode;;Hand-held Camcorders Category;MobileCamerasNavNode;HandheldCamcordersCategoryLink;MobileHandheldCamcordersNavNode
+;MobilePowerSuppliesNavNode;;Power Supplies Category;MobileElectronicsNavNode;PowerSuppliesCategoryLink;MobilePowerSuppliesNavNode
+;MobileFlashMemoryNavNode;;Flash Memory Category;MobileElectronicsNavNode;FlashMemoryCategoryLink;MobileFlashMemoryNavNode
+;MobileAccessoriesNavNode;;Accessories Links;MobileCameraAccessoriesNavNode;CamerasFlashesCategoryLink,TripodsCategoryLink,CameraLensesCategoryLink;MobileAccessoriesNavNode
+;MobileSuppliesNavNode;;Supplies Links;MobileCameraAccessoriesNavNode;ColourFilmsCategoryLink,BlackAndWhiteFilmsCategoryLink,BlankVideotapesCategoryLink;MobileSuppliesNavNode
+;MobileAcceleratorNavNode;;Accelerator Pages;MobileElectronicsNavNode;AboutAcceleratorLink,DocumentationLink;MobileAcceleratorNavNode
+;MobileHybrisNavNode;;Hybris Pages;MobileElectronicsNavNode;AboutHybrisLink,ContactUsLink;MobileHybrisNavNode
+;MobileFollowUsNavNode;;Follow Us;MobileElectronicsNavNode;LinkedInLink,FacebookLink,TwitterLink,FAQLink;MobileFollowUsNavNode
+;MobileAccountNavNode;;Account;MobileElectronicsNavNode;MobileAccountLink,MobileStoresLink;MobileAccountNavNode
+;MobileFooterNavNode;;MobileFooter;MobileElectronicsNavNode;MobileHomeFooterLink,MobileStoreFooterLink,MobileCartFooterLink,MobileConnectFooterLink;MobileFooterNavNode
+
+
+# Navigation Bar Component
+INSERT_UPDATE NavigationBarComponent;$contentCV[unique=true];uid[unique=true];navigationNode(&nodeRef);dropDownLayout(code)
+;;MobileCamerasBarComponent;MobileCamerasNavNode
+;;MobileDigitalCamerasBarComponent;MobileDigitalCamerasNavNode
+;;MobileFilmCamerasBarComponent;MobileFilmCamerasNavNode
+;;MobileCameraAccessoriesBarComponent;MobileCameraAccessoriesNavNode;AUTO
+;;MobilePowerSuppliesBarComponent;MobilePowerSuppliesNavNode
+;;MobileFlashMemoryBarComponent;MobileFlashMemoryNavNode
+;;MobileHandheldCamcordersBarComponent;MobileHandheldCamcordersNavNode
+
+# Update CMS Footer Component with Nav Nodes
+INSERT_UPDATE FooterComponent;$contentCV[unique=true];uid[unique=true];navigationNodes(&nodeRef)
+;;MobileFooterComponent;MobileFooterNavNode
+;;MobileNavContent;MobileFollowUsNavNode
+
+# Preview Image for use in the CMS Cockpit for special ContentPages
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images']
+;;MobileaccountPagePreview;text/png;AccountPage.png;$jarResourceCms/preview-images/electronics/MobileAccountPage.png
+;;MobileaddEditAddressPagePreview;text/png;AddEditAddressPage.png;$jarResourceCms/preview-images/electronics/MobileAddEditAddressPage.png
+;;MobileaddressBookPagePreview;text/png;AddressBook.png;$jarResourceCms/preview-images/electronics/MobileAddressBookPage.png
+;;MobilecartPagePreview;text/png;CartPage.png;$jarResourceCms/preview-images/electronics/MobileCartPage.png
+;;MobilecheckoutLoginPagePreview;text/png;CheckoutLoginPage.png;$jarResourceCms/preview-images/electronics/MobileCheckoutLoginPage.png
+;;MobilecheckoutSummaryPagePreview;text/png;CheckoutSummaryPage.png;$jarResourceCms/preview-images/electronics/MobileCheckoutSummaryPage.png
+;;MobileforgottenPasswordPagePreview;text/png;ForgottenPasswordPage.png;$jarResourceCms/preview-images/electronics/MobileForgottenPasswordPage.png
+;;MobilehomepagePreview;text/png;Homepage.png;$jarResourceCms/preview-images/electronics/MobileHomepage.png
+;;MobileloginPagePreview;text/png;LoginPage.png;$jarResourceCms/preview-images/electronics/MobileLoginPage.png
+;;MobilenotFoundPagePreview;text/png;NotFoundPage.png;$jarResourceCms/preview-images/electronics/MobileNotFoundPage.png
+;;MobileorderConfirmationPagePreview;text/png;OrderConfirmationPage.png;$jarResourceCms/preview-images/electronics/MobileOrderConfirmationPage.png
+;;MobileorderDetailsPagePreview;text/png;OrderDetailsPage.png;$jarResourceCms/preview-images/electronics/MobileOrderDetailsPage.png
+;;MobileorderHistoryPagePreview;text/png;OrderHistoryPage.png;$jarResourceCms/preview-images/electronics/MobileOrderHistoryPage.png
+;;MobilepaymentDetailsPagePreview;text/png;PaymentDetailsPage.png;$jarResourceCms/preview-images/electronics/MobilePaymentDetailsPage.png
+;;MobileproductDetailsPagePreview;text/png;ProductDetailsPage.png;$jarResourceCms/preview-images/electronics/MobileProductDetailsPage.png
+;;MobileproductListPagePreview;text/png;ProductListPage.png;$jarResourceCms/preview-images/electronics/MobileProductListPage.png
+;;MobileprofilePagePreview;text/png;ProfilePage.png;$jarResourceCms/preview-images/electronics/MobileProfilePage.png
+;;MobilesearchResultsEmptyPagePreview;text/png;SearchResultsEmptyPage.png;$jarResourceCms/preview-images/electronics/MobileSearchResultsEmptyPage.png
+;;MobilesearchResultsPagePreview;text/png;SearchResultsPage.png;$jarResourceCms/preview-images/electronics/MobileSearchResultsPage.png
+;;MobilestorefinderPagePreview;text/png;StoreFinderPage.png;$jarResourceCms/preview-images/electronics/MobileStoreFinderPage.png
+;;MobileupdateForgottenPasswordPagePreview;text/png;UpdateForgottenPasswordPage.png;$jarResourceCms/preview-images/electronics/MobileUpdateForgottenPasswordPage.png
+;;MobileproductGridPagePreview;text/png;ProductGridPage.png;$jarResourceCms/preview-images/electronics/MobileProductListPage.png
+;;MobiledefaultCategoryPagePreview;text/png;DefaultCategoryPage.png;$jarResourceCms/preview-images/electronics/MobileDefaultCategoryPage.png
+;;MobilefrequentlyAskedQuestionsPagePreview;text/png;FrequentlyAskedQuestionsPage.png;$jarResourceCms/preview-images/electronics/MobileFrequentlyAskedQuestionsPage.png;;;
+;;MobiletermsAndConditionsPagePreview;text/png;MobileTermsAndConditionsPage.png;$jarResourceCms/preview-images/electronics/MobileTermsAndConditionsPage.png;;;
+
+# Site-wide Homepage
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;mobile-homepage;MobilehomepagePreview
+
+# Functional Content Pages
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;mobile-multiStepCheckoutSummaryPage;MobilecheckoutSummaryPagePreview
+;;mobile-orderConfirmationPage;MobileorderConfirmationPagePreview
+;;mobile-cartPage;MobilecartPagePreview
+;;mobile-search;MobilesearchResultsPagePreview
+;;mobile-account;MobileaccountPagePreview
+;;mobile-profile;MobileprofilePagePreview
+;;mobile-address-book;MobileaddressBookPagePreview
+;;mobile-add-edit-address;MobileaddEditAddressPagePreview
+;;mobile-payment-details;MobilepaymentDetailsPagePreview
+;;mobile-order;MobileorderDetailsPagePreview
+;;mobile-orders;MobileorderHistoryPagePreview
+;;mobile-storefinderPage;MobilestorefinderPagePreview
+;;mobile-checkout-login;MobilecheckoutLoginPagePreview
+;;mobile-login;MobileloginPagePreview
+;;mobile-notFound;MobilenotFoundPagePreview
+;;mobile-searchEmpty;MobilesearchResultsEmptyPagePreview
+;;mobile-forgottenPassword;MobileforgottenPasswordPagePreview
+;;mobile-updatePassword;MobileupdateForgottenPasswordPagePreview
+;;mobile-faq;MobilefrequentlyAskedQuestionsPagePreview
+;;mobile-termsAndConditions;MobiletermsAndConditionsPagePreview
+
+# Product Details Page
+UPDATE ProductPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;mobile-productDetails;MobileproductDetailsPagePreview
+
+# Category Pages
+UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;mobile-productList;MobileproductListPagePreview
+;;mobile-productGrid;MobileproductGridPagePreview
+;;mobile-category;MobiledefaultCategoryPagePreview
+
+###### Electronics Homepage ######
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];altText;&imageRef;folder(qualifier)[default='images']
+;;1934793_1719.jpg;$productResource/images/96Wx96H/1934793_1719.jpg;;"Canon PowerShot A480";1934793_1719.jpg
+;;1992695-Sony-DSC-S930P-11441.jpg;$productResource/images/96Wx96H/1992695-Sony-DSC-S930P-11441.jpg;;"Sony Cybershot DSC-S930";1992695-Sony-DSC-S930P-11441.jpg
+;;1320808-1767.jpg;$productResource/images/96Wx96H/1320808-1767.jpg;;"Kodak EASYSHARE V1253";1320808-1767.jpg
+;;1978440-Sony-DSC-H20-114081.jpg;$productResource/images/96Wx96H/1978440-Sony-DSC-H20-114081.jpg;;"Sony DSC-H20";1978440-Sony-DSC-H20-114081.jpg
+
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;MobileOrderBy6Banner;Order By 6 Banner;MobileOrderBy6Banner;/Brands/c/brands
+;;MobileBrandsGaloreBanner;Brands Galore Banner;MobileBrandsGaloreBanner;/Brands/c/brands
+;;MobileCamcordersBanner;Camcorders Banner;MobileCamcordersBanner;/Open-Catalogue/Cameras/Hand-held-Camcorders/c/584
+;;MobileLensesBanner;Lenses Banner;MobileLensesBanner;/Open-Catalogue/Cameras/Camera-Accessories-%26-Supplies/Camera-Lenses/c/588
+;;MobileNextDayDeliveryBanner;Next Day Delivery Banner;MobileNextDayDeliveryBanner
+;;MobileSimpleCarouselCyberBanner;Simple Carousel cyber Banner;MobileSimpleCarouselCyberBanner;/Open-Catalogue/Cameras/Digital-Cameras/Digital-Compacts/Cyber-shot-W55/p/676442
+;;MobileSimpleCarouselFunBanner;Simple Carousel Fun Banner;MobileSimpleCarouselFunBanner;/Open-Catalogue/Cameras/Film-cameras/FUN-Flash-Single-Use-Camera%2C-27%2B12-pic/p/779841
+;;MobileSimpleDigitalCompactsBanner;Simple digital compacts banner;MobileSimpleDigitalCompactsBanner;/Open-Catalogue/Cameras/Digital-Cameras/Digital-Compacts/c/576
+
+INSERT_UPDATE BannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;MobileDigitalCompactCamerasBannerComponent;Digital Compact Cameras Small Detail;MobileDigitalCompactCamerasBannerComponent;/Open-Catalogue/Cameras/Digital-Cameras/Digital-Compacts/c/576
+;;MobileMemoryBannerComponent;Camera and Camcorder Memory Small Detail;MobileMemoryBannerComponent;/Open-Catalogue/Data-storage/Flash-Memory/c/902
+;;MobileAccessoriesBannerComponent;Camera Accessories and Supplies Small Detail;MobileAccessoriesBannerComponent;/Open-Catalogue/Cameras/Camera-Accessories-%26-Supplies/c/585
+;;MobileCarouselCyberBanner;Carousel Cyber Banner;MobileCarouselCyberBanner;/Open-Catalogue/Cameras/Digital-Cameras/Digital-Compacts/Cyber-shot-W55/p/676442
+;;MobileCarouselFunBanner;Carousel Fun Banner;MobileCarouselFunBanner;/Open-Catalogue/Cameras/Film-cameras/FUN-Flash-Single-Use-Camera%2C-27%2B12-pic/p/779841
+
+INSERT_UPDATE RotatingImagesComponent;$contentCV[unique=true];uid[unique=true];name;banners(&componentRef);&componentRef
+;;MobileElectronicsHomepageCarouselComponent;Electronics Homepage Carousel;MobileCarouselCyberBanner,MobileCarouselFunBanner;MobileElectronicsHomepageCarouselComponent
+
+INSERT_UPDATE ProductFeatureComponent;$contentCV[unique=true];uid[unique=true];name;product(code,$productCV);&componentRef
+;;MobileCanonPowershotFeatureComponent;MobileCanonPowershotFeatureComponent;1934793;MobileCanonPowershotFeatureComponent
+;;MobileSamsungNV10FeatureComponent;MobileSamsungNV10FeatureComponent;553637;MobileSamsungNV10FeatureComponent
+;;MobileSonyCybershotFeatureComponent;MobileSonyCybershotFeatureComponent;816802;MobileSonyCybershotFeatureComponent
+;;MobileCanonEosFeatureComponent;MobileCanonEosFeatureComponent;1382080;MobileCanonEosFeatureComponent
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;MobileSection1Slot-Homepage;Section1 Slot for Homepage;true;MobileBrandsGaloreBanner,MobileElectronicsHomepageCarouselComponent
+;;MobileSection4Slot-Homepage;Section4 Slot for Homepage;true;MobileAccessoriesBannerComponent,MobileCanonPowershotFeatureComponent,MobileCanonEosFeatureComponent,MobileSamsungNV10FeatureComponent,MobileSonyCybershotFeatureComponent
+;;MobileSection5Slot-Homepage;Section5 Slot for Homepage;true;MobileNextDayDeliveryBanner
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='mobile-homepage'];contentSlot(uid,$contentCV)[unique=true]
+;;MobileSection1-Homepage;Section1;;MobileSection1Slot-Homepage
+;;MobileSection4-Homepage;Section4;;MobileSection4Slot-Homepage
+;;MobileSection5-Homepage;Section5;;MobileSection5Slot-Homepage
+
+######  Electronics FAQ Page ###### 
+
+# CMS Paragraph Component (Contact information)
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;MobilefaqMenuParagraph;FAQ Paragraph;MobileFAQMenuParagraph
+;;MobilefaqTextParagraph;Mobile FAQ Paragraph;MobileFAQTextParagraph
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;MobileSection2ASlot-FAQ;Mobile Section2A Slot for FAQ Page;true;MobileFAQMenuParagraph
+;;MobileSection2BSlot-FAQ;Mobile Section2B Slot for FAQ Page;true;MobileFAQTextParagraph
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='mobile-faq'];contentSlot(uid,$contentCV)[unique=true]
+;;MobileSection2A-FAQ;Section2A;;MobileSection2ASlot-FAQ
+;;MobileSection2B-FAQ;Section2B;;MobileSection2BSlot-FAQ
+
+######  Electronics Terms And Conditions Page ######
+
+# CMS Paragraph Component (Contact information)
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;MobiletermsAndConditionsMenuParagraph;Mobile Terms and Conditions Paragraph;MobileTermsAndConditionsMenuParagraph;;;;
+;;MobiletermsAndConditionsTextParagraph;Mobile Terms and Conditions Paragraph;MobileTermsAndConditionsTextParagraph;;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;MobileSection2ASlot-TermsAndConditions;Mobile Section2A Slot for Terms and Conditions Page;true;MobileTermsAndConditionsMenuParagraph;;;
+;;MobileSection2BSlot-TermsAndConditions;Mobile Section2B Slot for Terms and Conditions Page;true;MobileTermsAndConditionsTextParagraph;;;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='mobile-termsAndConditions'];contentSlot(uid,$contentCV)[unique=true];;;
+;;MobileSection2A-TermsAndConditions;Section2A;;MobileSection2ASlot-TermsAndConditions;;;
+;;MobileSection2B-TermsAndConditions;Section2B;;MobileSection2BSlot-TermsAndConditions;;;
+
+###### Electronics Camera Accessories and Supplies Category Landing Page ######
+
+INSERT_UPDATE CMSCategoryRestriction;$contentCV[unique=true];uid[unique=true];name;categories(code, $productCV)
+;;MobileCamerasAccessoriesAndSupplies-LandingPageRestriction;Restriction for Cameras Accessories And Supplies;585
+
+INSERT_UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved'];previewImage(code, $contentCV);restrictions(uid,$contentCV)[default='MobileExperienceRestriction'];onlyOneRestrictionMustApply[default='false']
+;;mobile-CamerasAccessoriesAndSuppliesCategoryPage;Cameras Accessories & Supplies Category Page;MobileCategoryPageTemplate;false;;MobileCameraAccessoriesPagePreview;MobileExperienceRestriction,MobileCamerasAccessoriesAndSupplies-LandingPageRestriction
+
+INSERT_UPDATE CategoryFeatureComponent;$contentCV[unique=true];uid[unique=true];name;category(code, $productCV);&componentRef
+;;MobileCameraFlashesFeatureComponent;MobileCameraFlashesFeatureComponent;586;MobileCameraFlashesFeatureComponent
+;;MobileTripodFeatureComponent;MobileTripodFeatureComponent;587;MobileTripodFeatureComponent
+;;MobileCameraLensesFeatureComponent;MobileCameraLensesFeatureComponent;588;MobileCameraLensesFeatureComponent
+;;MobileColourFilmsFeatureComponent;MobileColourFilmsFeatureComponent;597;MobileColourFilmsFeatureComponent
+;;MobileBlackAndWhiteFilmsFeatureComponent;MobileBlackAndWhiteFilmsFeatureComponent;598;MobileBlackAndWhiteFilmsFeatureComponent
+;;MobileBlankVideoTapesFeatureComponent;MobileBlankVideoTapesFeatureComponent;604;MobileBlankVideoTapesFeatureComponent
+
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;MobileBuyOnlineBanner;Buy Online Banner;MobileBuyOnlineBanner
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;MobileSection2Slot-CameraAccessories;Section2 Slot for Camera Accessories Page;true;MobileAccessoriesBannerComponent
+;;MobileSection3Slot-CameraAccessories;Section3 Slot for Camera Accessories Page;true;MobileCameraFlashesFeatureComponent,MobileTripodFeatureComponent,MobileCameraLensesFeatureComponent,MobileColourFilmsFeatureComponent,MobileBlackAndWhiteFilmsFeatureComponent,MobileBlankVideoTapesFeatureComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='mobile-CamerasAccessoriesAndSuppliesCategoryPage'];contentSlot(uid,$contentCV)[unique=true]
+;;MobileSection2-CameraAccessories;Section2;;MobileSection2Slot-CameraAccessories
+;;MobileSection3-CameraAccessories;Section3;;MobileSection3Slot-CameraAccessories
+
+###### Electronics Search Results Page ######
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;MobileNoSearchResultsParagraphComponent;No Search Results Paragraph Component;MobileNoSearchResultsParagraphComponent
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;MobileTopContent-searchEmpty;Top Slot for searchEmpty;true;
+;;MobileMiddleContent-searchEmpty;Middle Slot for searchEmpty;true;MobileNoSearchResultsParagraphComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='mobile-searchEmpty'];contentSlot(uid,$contentCV)[unique=true]
+;;MobileTop-searchEmpty;TopContent;;MobileTopContent-searchEmpty
+;;MobileMiddle-searchEmpty;MiddleContent;;MobileMiddleContent-searchEmpty
+
+###### Electronics Cart Page ######
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;MobileEmptyCartParagraphComponent;Empty Cart Paragraph Component;MobileEmptyCartParagraphComponent
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;MobileMiddleContent-cartPage;Middle Slot for cartPage;true;MobileEmptyCartParagraphComponent
+;;MobileBottomContentContent-cartPage;BottomContent Slot for cartPage;true;MobileNextDayDeliveryBanner
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='mobile-cartPage'];contentSlot(uid,$contentCV)[unique=true]
+;;MobileMiddle-cartPage;MiddleContent;;MobileMiddleContent-cartPage
+;;MobileBottomContent-cartPage;BottomContent;;MobileBottomContentContent-cartPage
+
+############Camcorder Category Banner###############
+INSERT_UPDATE CMSCategoryRestriction;$contentCV[unique=true];uid[unique=true];name;categories(code, $productCV)
+;;MobileCamcorders-SearchPageRestriction;Restriction for Camcorders;584
+
+INSERT_UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved'];previewImage(code, $contentCV);restrictions(uid,$contentCV)[default='MobileExperienceRestriction'];onlyOneRestrictionMustApply[default='false']
+;;mobile-CamcorderCategoryPage;Camcorder Category Page;MobileProductListPageTemplate;false;;MobileCameraAccessoriesPagePreview;MobileExperienceRestriction,MobileCamcorders-SearchPageRestriction
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;MobileSection2Slot-CamcorderCategoryPage;Section2 slot for camcorder category page;true;MobileCamcordersBanner
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='mobile-CamcorderCategoryPage'];contentSlot(uid,$contentCV)[unique=true]
+;;MobileSection2-CamcorderCategoryPage;Section2;;MobileSection2Slot-CamcorderCategoryPage
+##############################################################
+
+
+############Digital Camera Category Banner###############
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;MobileSection2Slot-DigitalCamerasCategoryPage;Section2 slot for Digital Cameras page;true;MobileSimpleCarouselCyberBanner
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='mobile-DigitalCameras'];contentSlot(uid,$contentCV)[unique=true]
+;;MobileSection2-DigitalCamerasCategoryPage;Section2;;MobileSection2Slot-DigitalCamerasCategoryPage
+##############################################################
+
+
+##############Cameras Category Banner###########################
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;MobileSection2Slot-CamerasCategoryPage;Section2 slot for cameras category page;true;MobileSimpleCarouselFunBanner
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='mobile-Cameras'];contentSlot(uid,$contentCV)[unique=true]
+;;MobileSection2-CamerasCategoryPage;Section2;;MobileSection2Slot-CamerasCategoryPage
+##########################################################################
+
+
+####################Store finder Digital Compacts Banner###########
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;MobileBottomContentSlot-StoreFinderPage;BottomContent slot for Store Finder Page;true;MobileSimpleDigitalCompactsBanner
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='mobile-storefinderPage'];contentSlot(uid,$contentCV)[unique=true]
+;;MobileBottomContentSlot-StoreFinderPage;BottomContent;;MobileBottomContentSlot-StoreFinderPage
+####################################################################
+
+#################### My account online save Banner###########
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;MobileBottomContentSlot-account;BottomContent slot for account Page;true;MobileBuyOnlineBanner
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='mobile-account'];contentSlot(uid,$contentCV)[unique=true]
+;;MobileBottomContentSlot-account;BottomContent;;MobileBottomContentSlot-account
+####################################################################
+
+
+############Digital Compacts Category###############
+INSERT_UPDATE CMSCategoryRestriction;$contentCV[unique=true];uid[unique=true];name;categories(code, $productCV)
+;;MobileDigitalCompacts-SearchPageRestriction;Restriction for Digital Compacts;576
+
+INSERT_UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved'];previewImage(code, $contentCV);restrictions(uid,$contentCV)[default='MobileExperienceRestriction'];onlyOneRestrictionMustApply[default='false']
+;;mobile-DigitalCompactsCategoryPage;Camcorder Category Page;MobileProductListPageTemplate;false;;MobileCameraAccessoriesPagePreview;MobileExperienceRestriction,MobileDigitalCompacts-SearchPageRestriction
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;MobileSection2Slot-DigitalCompactsCategoryPage;Section2 slot for camcorder category page;true;MobileMemoryBannerComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='mobile-DigitalCompactsCategoryPage'];contentSlot(uid,$contentCV)[unique=true]
+;;MobileSection2-DigitalCompactsCategoryPage;Section2;;MobileSection2Slot-DigitalCompactsCategoryPage
+##############################################################
+
+
+############Lens Banner###############
+INSERT_UPDATE CMSCategoryRestriction;$contentCV[unique=true];uid[unique=true];name;categories(code, $productCV)
+;;MobileLens-LandingPageRestriction;Restriction for DSLRS;588
+
+INSERT_UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved'];previewImage(code, $contentCV);restrictions(uid,$contentCV)[default='MobileExperienceRestriction'];onlyOneRestrictionMustApply[default='false']
+;;mobile-LensCategoryPage;Mobile Lens Category Page;MobileProductListPageTemplate;false;;MobileCameraAccessoriesPagePreview;MobileExperienceRestriction,MobileLens-LandingPageRestriction
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;MobileSection2Slot-LensCategoryPage;Section2 slot for Lens category page;true;MobileLensesBanner
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='mobile-LensCategoryPage'];contentSlot(uid,$contentCV)[unique=true]
+;;MobileSection2-LensCategoryPage;Section2;;MobileSection2Slot-LensCategoryPage
+##############################################################
+
+
+############SubCategoryList Component for Product List Page###############
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;MobileSection3Slot-productList;Section3 slot for Product List Page;true;SubCategoryListComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='mobile-productList'];contentSlot(uid,$contentCV)[unique=true]
+;;MobileSection3-productList;Section3;;MobileSection3Slot-productList
+####################################################################
+
+
+############SubCategoryList Component for Product Grid Page###############
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;MobileSection3Slot-productGrid;Section3 slot for Product Grid Page;true;SubCategoryListComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='mobile-productGrid'];contentSlot(uid,$contentCV)[unique=true]
+;;MobileSection3-productGrid;Section3;;MobileSection3Slot-productGrid
+####################################################################

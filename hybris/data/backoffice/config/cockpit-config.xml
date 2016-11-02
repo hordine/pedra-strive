@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config xmlns="http://www.hybris.com/cockpit/config">
+    <context principal="employee_role" component="explorer-tree" perspective="joelito-rock">
+        <n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+            <n:navigation-node id="Catalog">
+                <n:type-node code="Catalog" id="Catalogs"/>
+                <n:type-node code="Category" id="Categories"/>
+                <n:type-node code="Product" id="Products"/>
+			</n:navigation-node>
+            <n:navigation-node id="system">
+                <n:type-node code="User" id="Users"/>
+                <n:type-node code="UserGroup" id="Groups"/>
+                <n:navigation-node id="Internationalization">
+                    <n:type-node code="Country" id="Country"/>
+                    <n:type-node code="Language" id="Language"/>
+                    <n:type-node code="Currency" id="Currency"/>
+				</n:navigation-node>
+			</n:navigation-node>
+
+		</n:explorer-tree>
+    </context>
+    <context principal="employee_role" component="explorer-tree" perspective="thundera">
+        <n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree">
+            <n:navigation-node id="Order">
+                <n:type-node code="Order" id="Orders"/>
+                <n:type-node code="PaymentRequest" id="PaymentRequests"/>
+                <n:type-node code="PaymentResponse" id="PaymentResponses"/>
+			</n:navigation-node>
+		</n:explorer-tree>
+    </context>
+    <context type="Product" principal="employee_role" component="simple-list">
+        <ysl:simple-list xmlns:ysl="http://www.hybris.com/cockpitng/config/simplelist">
+            <ysl:name field="identifier"/>
+            <ysl:description field="description"/>
+            <ysl:image field="thumbnail.url"/>
+			</ysl:simple-list>
+    </context>
+    <context type="Category" principal="employee_role" component="simple-list">
+        <ysl:simple-list xmlns:ysl="http://www.hybris.com/cockpitng/config/simplelist">
+            <ysl:name field="name"/>
+            <ysl:description field="description"/>
+			</ysl:simple-list>
+    </context>
+    <context type="Catalog" principal="employee_role" component="simple-list">
+        <ysl:simple-list xmlns:ysl="http://www.hybris.com/cockpitng/config/simplelist">
+            <ysl:name field="id"/>
+            <ysl:description field="name"/>
+			</ysl:simple-list>
+    </context>
+    <context type="User" principal="employee_role" component="simple-list">
+        <ysl:simple-list xmlns:ysl="http://www.hybris.com/cockpitng/config/simplelist">
+            <ysl:name field="uid"/>
+            <ysl:description field="name"/>
+			</ysl:simple-list>
+    </context>
+    <context type="UserGroup" principal="employee_role" component="simple-list">
+        <ysl:simple-list xmlns:ysl="http://www.hybris.com/cockpitng/config/simplelist">
+            <ysl:name field="uid"/>
+            <ysl:description field="displayName"/>
+			</ysl:simple-list>
+    </context>
+    <context type="Country" principal="employee_role" component="simple-list">
+        <ysl:simple-list xmlns:ysl="http://www.hybris.com/cockpitng/config/simplelist">
+            <ysl:name field="name"/>
+			</ysl:simple-list>
+    </context>
+    <context type="Language" principal="employee_role" component="simple-list">
+        <ysl:simple-list xmlns:ysl="http://www.hybris.com/cockpitng/config/simplelist">
+            <ysl:name field="name"/>
+			</ysl:simple-list>
+    </context>
+    <context type="Currency" principal="employee_role" component="simple-list">
+        <ysl:simple-list xmlns:ysl="http://www.hybris.com/cockpitng/config/simplelist">
+            <ysl:name field="name"/>
+			</ysl:simple-list>
+    </context>
+    <context type="Order" principal="employee_role" component="simple-list">
+        <ysl:simple-list xmlns:ysl="http://www.hybris.com/cockpitng/config/simplelist">
+            <ysl:name field="code"/>
+            <ysl:description field="user.name"/>
+            <ysl:image field="mostSignificantProduct.thumbnail.url"/>
+			</ysl:simple-list>
+    </context>
+    <context type="Product" principal="employee_role" component="simple-search">
+        <yss:simple-search xmlns:yss="http://www.hybris.com/cockpitng/config/simplesearch">
+            <yss:field name="code"/>
+            <yss:field name="name"/>
+            <yss:sort-field asc="true" name="code"/>
+			</yss:simple-search>
+    </context>
+    <context type="Category" principal="employee_role" component="simple-search">
+        <yss:simple-search xmlns:yss="http://www.hybris.com/cockpitng/config/simplesearch">
+            <yss:field name="code"/>
+            <yss:field name="name"/>
+            <yss:sort-field asc="true" name="code"/>
+			</yss:simple-search>
+    </context>
+    <context type="Catalog" principal="employee_role" component="simple-search">
+        <yss:simple-search xmlns:yss="http://www.hybris.com/cockpitng/config/simplesearch">
+            <yss:field name="id"/>
+            <yss:field name="name"/>
+            <yss:sort-field asc="true" name="id"/>
+			</yss:simple-search>
+    </context>
+    <context type="Language" principal="employee_role" component="simple-search">
+        <yss:simple-search xmlns:yss="http://www.hybris.com/cockpitng/config/simplesearch">
+            <yss:field name="isoCode"/>
+            <yss:field name="name"/>
+            <yss:sort-field asc="true" name="isoCode"/>
+			</yss:simple-search>
+    </context>
+    <context type="Currency" principal="employee_role" component="simple-search">
+        <yss:simple-search xmlns:yss="http://www.hybris.com/cockpitng/config/simplesearch">
+            <yss:field name="isoCode"/>
+            <yss:field name="name"/>
+            <yss:sort-field asc="true" name="isoCode"/>
+			</yss:simple-search>
+    </context>
+    <context type="Country" principal="employee_role" component="simple-search">
+        <yss:simple-search xmlns:yss="http://www.hybris.com/cockpitng/config/simplesearch">
+            <yss:field name="isoCode"/>
+            <yss:field name="name"/>
+            <yss:sort-field asc="true" name="isoCode"/>
+			</yss:simple-search>
+    </context>
+    <context type="User" principal="employee_role" component="simple-search">
+        <yss:simple-search xmlns:yss="http://www.hybris.com/cockpitng/config/simplesearch">
+            <yss:field name="uid"/>
+            <yss:field name="name"/>
+            <yss:sort-field asc="true" name="uid"/>
+			</yss:simple-search>
+    </context>
+    <context type="UserGroup" principal="employee_role" component="simple-search">
+        <yss:simple-search xmlns:yss="http://www.hybris.com/cockpitng/config/simplesearch">
+            <yss:field name="uid"/>
+            <yss:sort-field asc="true" name="uid"/>
+			</yss:simple-search>
+    </context>
+    <context type="java.lang.String" component="simple-list">
+        <ysl:simple-list xmlns:ysl="http://www.hybris.com/cockpitng/config/simplelist">
+            <ysl:name field="#root"/>
+            <ysl:description field="class.canonicalName"/>
+
+		</ysl:simple-list>
+    </context>
+    <context principal="advanced" component="explorer-tree">
+        <explorer-tree:explorer-tree xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree">
+            <explorer-tree:navigation-node id="node1">
+                <explorer-tree:navigation-node id="node1_1">
+                    <explorer-tree:navigation-node id="node1_1_1"/>
+				</explorer-tree:navigation-node>
+                <explorer-tree:navigation-node id="node1_2">
+                    <explorer-tree:navigation-node id="node1_2_1"/>
+				</explorer-tree:navigation-node>
+			</explorer-tree:navigation-node>
+            <explorer-tree:navigation-node id="node2">
+                <explorer-tree:navigation-node id="node2_1"/>
+			</explorer-tree:navigation-node>
+		</explorer-tree:explorer-tree>
+    </context>
+    <context type="PaymentRequest" principal="employee_role" component="simple-list">
+        <ysl:simple-list xmlns:ysl="http://www.hybris.com/cockpitng/config/simplelist">
+            <ysl:name field="orderCode"/>
+            <ysl:description field="requestParams"/>
+			</ysl:simple-list>
+    </context>
+</config>

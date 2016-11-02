@@ -1,0 +1,11 @@
+
+#
+# Import the Merchandise Content Catalog
+#
+# ENGLISH LOCALIZATION
+#
+$lang=en
+$contentCatalog=pedraContentCatalog
+ 
+UPDATE ContentCatalog;id[unique=true];name[lang=$lang];
+;$contentCatalog;"pedra Content Catalog"

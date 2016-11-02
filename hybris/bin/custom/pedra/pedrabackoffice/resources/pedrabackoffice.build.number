@@ -1,0 +1,11 @@
+#Wed, 27 Mar 2013 16:33:19 +0100
+#Ant properties
+#Wed Mar 27 16:33:19 CET 2013
+builddate=20130327 1633
+description=pedrabackoffice
+name=pedrabackoffice
+vendor=hybris
+version=5.0.0.0
+
+revision=68171
+svnurl=https\://svn.hybris.com/ebusiness/branches/5.0.0/bin/ext-template/pedrabackoffice

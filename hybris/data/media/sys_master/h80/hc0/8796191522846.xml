@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editor>
+    <group qualifier="General" visible="true" tabbed="false" initially-opened="true" show-if-empty="true" show-in-create-mode="true" position="1" printable="true">
+        <label lang="pt">Básico</label>
+        <label lang="de">Stammdaten</label>
+        <label lang="ja">基本</label>
+        <label lang="en">Basic</label>
+        <label lang="nl">Basic</label>
+        <property qualifier="CMSItem.name" visible="true"/>
+        <property qualifier="CMSItem.catalogVersion" visible="true" editor="shortListEditor"/>
+        <property qualifier="AbstractCMSComponent.visible" visible="true"/>
+    </group>
+    <group qualifier="editorial" visible="true" tabbed="false" initially-opened="true" show-if-empty="true" show-in-create-mode="true" position="2" printable="true">
+        <label lang="pt">Editorial</label>
+        <label lang="de">Redaktionell</label>
+        <label lang="ja">編集</label>
+        <label lang="en">Editorial</label>
+        <label lang="nl">Editorial</label>
+        <property qualifier="CMSImageComponent.media" visible="true" editor="simpleCelumReferenceSelector">
+            <parameter>
+                <name>allowCreate</name>
+                <value>true</value>
+            </parameter>
+            <parameter>
+                <name>mimeTypes</name>
+                <value>
+					image/jpeg;image/gif;image/png
+				</value>
+            </parameter>
+        </property>
+    </group>
+    <group qualifier="visibility" visible="true" tabbed="false" initially-opened="false" show-if-empty="true" show-in-create-mode="true" position="3" printable="true">
+        <label lang="pt">Visibilidade do contexto</label>
+        <label lang="de">Kontextsichtbarkeit</label>
+        <label lang="ja">コンテキスト可視性</label>
+        <label lang="en">Context Visibility</label>
+        <label lang="nl">Context Visibility</label>
+        <property qualifier="AbstractCMSComponent.restrictions" visible="true">
+            <parameter>
+                <name>allowCreate</name>
+                <value>true</value>
+            </parameter>
+        </property>
+        <property qualifier="AbstractCMSComponent.onlyOneRestrictionMustApply" visible="true"/>
+    </group>
+    <group qualifier="admin" visible="true" tabbed="false" initially-opened="false" show-if-empty="true" show-in-create-mode="true" position="4" printable="true">
+        <label lang="pt">Administração</label>
+        <label lang="de">Verwaltung</label>
+        <label lang="ja">管理</label>
+        <label lang="en">Administration</label>
+        <label lang="nl">Administration</label>
+        <property qualifier="CMSItem.uid" visible="true"/>
+        <property qualifier="AbstractCMSComponent.slots" visible="true"/>
+        <property qualifier="AbstractCMSComponent.container" visible="true"/>
+        <property qualifier="Item.pk" visible="true"/>
+        <property qualifier="Item.creationtime" visible="true"/>
+        <property qualifier="Item.modifiedtime" visible="true"/>
+    </group>
+    <custom-group qualifier="unassigned" visible="false" class="de.hybris.platform.cockpit.services.config.impl.UnassignedEditorSectionConfiguration" initially-opened="false" show-if-empty="true" printable="true">
+        <label lang="pt">Outro</label>
+        <label lang="de">Andere</label>
+        <label lang="ja">その他</label>
+        <label lang="en">Other</label>
+        <label lang="nl">Other</label>
+    </custom-group>
+</editor>

@@ -1,0 +1,8 @@
+#Ant properties
+#Wed Nov 12 09:16:09 CET 2014
+build.builddate=20141112 0916
+build.releasedate=20130710 1918
+build.revision=69865
+build.svnurl=https\://svn.hybris.com/ebusiness/tags/5.0.0.1/bin/platform
+build.vendor=hybris
+build.version=5.0.0.1

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/util
+		http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<!--
+		Section for Traditional Spring MVC.
+		Annotation driven controllers, and a list of packages to scan. Can be extended by adding (or removing) packages.
+	-->
+
+	<!-- activates annotation driven binding -->
+	<mvc:annotation-driven ignoreDefaultModelOnRedirect="true" validator="validator">
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
+			<bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter"/>
+			<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" scope="tenant">
+		<!-- <property name="validationMessageSource" ref="storefrontMessageSource"/>  -->
+	</bean>
+	
+
+	<!-- Scan for annotation configured controller -->
+	<context:component-scan base-package="com.pedra.ideal.web" scope-resolver="de.hybris.platform.spring.IgnoreTenantScopeMetadataResolver"  />
+	
+	<!--This is a bean post-processor for RequestMappingHandlerAdapter-->
+	<bean class="com.pedra.ideal.web.mvc.RequestMappingHandlerAdapterConfigurer" init-method="init">
+		<property name="urlPathHelper">
+			<bean class="com.pedra.ideal.web.mvc.AcceleratorUrlPathHelper"/>
+		</property>
+	</bean>
+	
+	<!--  MVC Interceptors -->
+	<alias name="defaultBeforeControllerHandlersList" alias="beforeControllerHandlersList" />
+	<util:list id="defaultBeforeControllerHandlersList" scope="tenant">
+		<!-- List of handlers to run -->
+		<bean class="com.pedra.ideal.web.interceptors.beforecontroller.LoggingBeforeControllerHandler" scope="tenant" />
+	</util:list>
+	
+	<!-- Interceptor that runs once per request and before the controller handler method is called -->
+	<alias name="defaultBeforeControllerHandlerInterceptor" alias="beforeControllerHandlerInterceptor" />
+	<bean id="defaultBeforeControllerHandlerInterceptor" class="com.pedra.ideal.web.interceptors.BeforeControllerHandlerInterceptor" scope="tenant">
+		<property name="beforeControllerHandlers">
+			<ref bean="beforeControllerHandlersList" />	
+		</property>
+	</bean>	
+	
+	<mvc:interceptors>
+		<ref bean="beforeControllerHandlerInterceptor" />
+	</mvc:interceptors>
+</beans>

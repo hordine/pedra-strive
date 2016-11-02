@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testclasses>
+  <pedracore>
+    <testclass>com.pedra.core.product.PedraProductDaoTest</testclass>
+    <testclass>com.pedra.core.setup.CoreSystemSetupUnitTest</testclass>
+    <testclass>com.pedra.core.checkout.flow.impl.SiteCheckoutFlowStrategyTest</testclass>
+    <testclass>com.pedra.core.additions.GeneratedTypesTest</testclass>
+    <testclass>com.pedra.core.product.MostSignificantProductTest</testclass>
+    <testclass>com.pedra.core.additions.DynamicAttributeTest</testclass>
+    <testclass>com.pedra.core.suggestion.DefaultSimpleSuggestionServiceIntegrationTest</testclass>
+    <testclass>com.pedra.core.checkout.flow.impl.NewCustomerCheckoutFlowStrategyTest</testclass>
+    <testclass>com.pedra.core.checkout.flow.impl.FixedCheckoutFlowStrategyTest</testclass>
+    <testclass>com.pedra.core.batch.task.BatchIntegrationTest</testclass>
+    <testclass>com.pedra.core.checkout.flow.impl.PickUpInStoreCheckoutFlowStrategyTest</testclass>
+    <testclass>com.pedra.core.suggestion.impl.DefaultSimpleSuggestionServiceTest</testclass>
+  </pedracore>
+</testclasses>

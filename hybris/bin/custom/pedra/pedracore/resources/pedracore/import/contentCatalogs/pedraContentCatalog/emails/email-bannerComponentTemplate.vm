@@ -1,0 +1,20 @@
+#set ( $siteUrl = $ctx.urlResolutionService.getWebsiteUrlForSite($ctx.site,false,$ctx.urlLink) )
+#set ( $mediaUrl =  $ctx.urlResolutionService.getWebsiteUrlForSite($ctx.site,false,$ctx.media.url) )
+<div>
+	<div>
+		<h2><a href="${siteUrl}">${ctx.headline}</a></h2>
+	</div>
+	<div>
+		<a href="${siteUrl}">
+			<img title="${ctx.headline}" 
+				 alt="#if(${ctx.media.altText})${ctx.media.altText}#end" 
+				 src="${mediaUrl}">
+		</a>
+	</div>
+	<div>
+		<a href="${siteUrl}">${ctx.content}</a>
+	</div>
+	<div>
+		<img alt="#if(${ctx.media.altText})${ctx.media.altText}#end" src="${ctx.themeResourceUrl}/images/icon-arrow-category-tile.png">
+	</div>
+</div>

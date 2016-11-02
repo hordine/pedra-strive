@@ -1,0 +1,31 @@
+# ImpEx for Apparel UK Stores
+# English localisations
+
+$lang=en
+$standardHours=apparel-uk-standard-hours
+$weekendHours=apparel-uk-weekend-hours
+
+UPDATE StoreLocatorFeature;code[unique=true];name[lang=$lang]
+;wheelchair;"Wheelchair Access"
+;creche;"Creche"
+;sundayWorkshops;"Sunday Workshops"
+;buyOnlinePickupInStore;"Buy Online Pick Up In Store"
+
+UPDATE SpecialOpeningDay;openingSchedule(code)[unique=true];date[unique=true,dateformat=dd.MM.yyyy];name[lang=$lang];message[lang=$lang]
+;$standardHours; 01.01.2013 ;"New Year's Day Holiday";""
+;$standardHours; 29.03.2013 ;"Good Friday";""
+;$standardHours; 01.04.2013 ;"Easter Monday";""
+;$standardHours; 06.05.2013 ;"Early May Bank Holiday";""
+;$standardHours; 27.05.2013 ;"Spring Bank Holiday";""
+;$standardHours; 26.08.2013 ;"Summer Bank Holiday";""
+;$standardHours; 26.12.2013 ;"Boxing Day";""
+;$standardHours; 25.12.2013 ;"Christmas Day Holiday";""
+
+;$weekendHours; 01.01.2013 ;"New Year's Day Holiday";""
+;$weekendHours; 29.03.2013 ;"Good Friday";""
+;$weekendHours; 01.04.2013 ;"Easter Monday";""
+;$weekendHours; 06.05.2013 ;"Early May Bank Holiday";""
+;$weekendHours; 27.05.2013 ;"Spring Bank Holiday";""
+;$weekendHours; 26.08.2013 ;"Summer Bank Holiday";""
+;$weekendHours; 26.12.2013 ;"Boxing Day";""
+;$weekendHours; 25.12.2013 ;"Christmas Day Holiday";""

@@ -1,0 +1,85 @@
+# ImPex for Importing Product Media into Pedra store
+ 
+# Macros / Replacement Parameter definitions
+$productCatalog=pedraProductCatalog
+$storeName=pedra
+ 
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog]
+$media=@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]
+$thumbnail=thumbnail(code, $catalogVersion)
+$picture=picture(code, $catalogVersion)
+$thumbnails=thumbnails(code, $catalogVersion)
+$detail=detail(code, $catalogVersion)
+$normal=normal(code, $catalogVersion)
+$others=others(code, $catalogVersion)
+$data_sheet=data_sheet(code, $catalogVersion)
+$medias=medias(code, $catalogVersion)
+$galleryImages=galleryImages(qualifier, $catalogVersion)
+$siteResource=jar:com.pedra.initialdata.setup.InitialDataSystemSetup&/pedrainitialdata/import/productCatalogs/$productCatalog
+ 
+INSERT_UPDATE MediaFolder;qualifier[unique=true];path[unique=true]
+;images;images
+ 
+# Create Media
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];$media;mime[default='image/jpg'];$catalogVersion;folder(qualifier)
+;1200Wx1200H;/1200Wx1200H/hardrockcafe_detail.jpg;$siteResource/images/1200Wx1200H/hardrockcafe_detail.jpg;;;images
+;1200Wx1200H;/1200Wx1200H/hardrockmusic_detail.jpg;$siteResource/images/1200Wx1200H/hardrockmusic_detail.jpg;;;images
+;1200Wx1200H;/1200Wx1200H/rockybalboa_detail.jpg;$siteResource/images/1200Wx1200H/rockybalboa_detail.jpg;;;images
+;1200Wx1200H;/1200Wx1200H/eagles_detail.jpg;$siteResource/images/1200Wx1200H/eagles_detail.jpg;;;images
+;1200Wx1200H;/1200Wx1200H/limestone_detail.jpg;$siteResource/images/1200Wx1200H/limestone_detail.jpg;;;images
+;1200Wx1200H;/1200Wx1200H/jamestaylor_detail.jpg;$siteResource/images/1200Wx1200H/jamestaylor_detail.jpg;;;images
+;1200Wx1200H;/1200Wx1200H/PedraBranca_detail.jpg;$siteResource/images/1200Wx1200H/PedraBranca_detail.jpg;;;images
+;1200Wx1200H;/1200Wx1200H/RootsRockReggae_detail.jpg;$siteResource/images/1200Wx1200H/RootsRockReggae_detail.jpg;;;images
+;1200Wx1200H;/1200Wx1200H/beatles_detail.jpg;$siteResource/images/1200Wx1200H/beatles_detail.jpg;;;images
+;1200Wx1200H;/1200Wx1200H/rollingstones_detail.jpg;$siteResource/images/1200Wx1200H/rollingstones_detail.jpg;;;images
+;1200Wx1200H;/1200Wx1200H/tribodejah_detail.jpg;$siteResource/images/1200Wx1200H/tribodejah_detail.jpg;;;images
+;300Wx300H;/300Wx300H/hardrockcafe_normal.jpg;$siteResource/images/300Wx300H/hardrockcafe_normal.jpg;;;images
+;300Wx300H;/300Wx300H/hardrockmusic_normal.jpg;$siteResource/images/300Wx300H/hardrockmusic_normal.jpg;;;images
+;300Wx300H;/300Wx300H/rockybalboa_normal.jpg;$siteResource/images/300Wx300H/rockybalboa_normal.jpg;;;images
+;300Wx300H;/300Wx300H/eagles_normal.jpg;$siteResource/images/300Wx300H/eagles_normal.jpg;;;images
+;300Wx300H;/300Wx300H/limestone_normal.jpg;$siteResource/images/300Wx300H/limestone_normal.jpg;;;images
+;300Wx300H;/300Wx300H/jamestaylor_normal.jpg;$siteResource/images/300Wx300H/jamestaylor_normal.jpg;;;images
+;300Wx300H;/300Wx300H/PedraBranca_normal.jpg;$siteResource/images/300Wx300H/PedraBranca_normal.jpg;;;images
+;300Wx300H;/300Wx300H/RootsRockReggae_normal.jpg;$siteResource/images/300Wx300H/RootsRockReggae_normal.jpg;;;images
+;300Wx300H;/300Wx300H/beatles_normal.jpg;$siteResource/images/300Wx300H/beatles_normal.jpg;;;images
+;300Wx300H;/300Wx300H/rollingstones_normal.jpg;$siteResource/images/300Wx300H/rollingstones_normal.jpg;;;images
+;300Wx300H;/300Wx300H/tribodejah_normal.jpg;$siteResource/images/300Wx300H/tribodejah_normal.jpg;;;images
+;96Wx96H;/96Wx96H/hardrockcafe_thumbnail.jpg;$siteResource/images/96Wx96H/hardrockcafe_thumbnail.jpg;;;images
+;96Wx96H;/96Wx96H/hardrockmusic_thumbnail.jpg;$siteResource/images/96Wx96H/hardrockmusic_thumbnail.jpg;;;images
+;96Wx96H;/96Wx96H/rockybalboa_thumbnail.jpg;$siteResource/images/96Wx96H/rockybalboa_thumbnail.jpg;;;images
+;96Wx96H;/96Wx96H/eagles_thumbnail.jpg;$siteResource/images/96Wx96H/eagles_thumbnail.jpg;;;images
+;96Wx96H;/96Wx96H/limestone_thumbnail.jpg;$siteResource/images/96Wx96H/limestone_thumbnail.jpg;;;images
+;96Wx96H;/96Wx96H/jamestaylor_thumbnail.jpg;$siteResource/images/96Wx96H/jamestaylor_thumbnail.jpg;;;images
+;96Wx96H;/96Wx96H/PedraBranca_thumbnail.jpg;$siteResource/images/96Wx96H/PedraBranca_thumbnail.jpg;;;images
+;96Wx96H;/96Wx96H/RootsRockReggae_thumbnail.jpg;$siteResource/images/96Wx96H/RootsRockReggae_thumbnail.jpg;;;images
+;96Wx96H;/96Wx96H/beatles_thumbnail.jpg;$siteResource/images/96Wx96H/beatles_thumbnail.jpg;;;images
+;96Wx96H;/96Wx96H/rollingstones_thumbnail.jpg;$siteResource/images/96Wx96H/rollingstones_thumbnail.jpg;;;images
+;96Wx96H;/96Wx96H/tribodejah_thumbnail.jpg;$siteResource/images/96Wx96H/tribodejah_thumbnail.jpg;;;images
+ 
+# Create Media Containers
+INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;$catalogVersion
+;0001_1.jpg;/1200Wx1200H/hardrockcafe_detail.jpg,/300Wx300H/hardrockcafe_normal.jpg,/96Wx96H/hardrockcafe_thumbnail.jpg
+;0002_1.jpg;/1200Wx1200H/hardrockmusic_detail.jpg,/300Wx300H/hardrockmusic_normal.jpg,/96Wx96H/hardrockmusic_thumbnail.jpg
+;0003_1.jpg;/1200Wx1200H/rockybalboa_detail.jpg,/300Wx300H/rockybalboa_normal.jpg,/96Wx96H/rockybalboa_thumbnail.jpg
+;0050_1.jpg;/1200Wx1200H/eagles_detail.jpg,/300Wx300H/eagles_normal.jpg,/96Wx96H/eagles_thumbnail.jpg
+;0051_1.jpg;/1200Wx1200H/limestone_detail.jpg,/300Wx300H/limestone_normal.jpg,/96Wx96H/limestone_thumbnail.jpg
+;0052_1.jpg;/1200Wx1200H/jamestaylor_detail.jpg,/300Wx300H/jamestaylor_normal.jpg,/96Wx96H/jamestaylor_thumbnail.jpg
+;0100_1.jpg;/1200Wx1200H/beatles_detail.jpg,/300Wx300H/beatles_normal.jpg,/96Wx96H/beatles_thumbnail.jpg
+;0101_1.jpg;/1200Wx1200H/rollingstones_detail.jpg,/300Wx300H/rollingstones_normal.jpg,/96Wx96H/rollingstones_thumbnail.jpg
+;0200_1.jpg;/1200Wx1200H/PedraBranca_detail.jpg,/300Wx300H/PedraBranca_normal.jpg,/96Wx96H/PedraBranca_thumbnail.jpg
+;0201_1.jpg;/1200Wx1200H/RootsRockReggae_detail.jpg,/300Wx300H/RootsRockReggae_normal.jpg,/96Wx96H/RootsRockReggae_thumbnail.jpg
+;0202_1.jpg;/1200Wx1200H/tribodejah_detail.jpg,/300Wx300H/tribodejah_normal.jpg,/96Wx96H/tribodejah_thumbnail.jpg
+ 
+# Update Products with Media and Media Containers
+INSERT_UPDATE Product;code[unique=true];$catalogVersion;$galleryImages;$picture;$thumbnail
+ ;0001;;0001_1.jpg;/300Wx300H/hardrockcafe_normal.jpg;/96Wx96H/hardrockcafe_thumbnail.jpg
+ ;0002;;0002_1.jpg;/300Wx300H/hardrockmusic_normal.jpg;/96Wx96H/hardrockmusic_thumbnail.jpg
+ ;0003;;0003_1.jpg;/300Wx300H/rockybalboa_normal.jpg;/96Wx96H/rockybalboa_thumbnail.jpg
+ ;0050;;0050_1.jpg;/300Wx300H/eagles_normal.jpg;/96Wx96H/eagles_thumbnail.jpg
+ ;0051;;0051_1.jpg;/300Wx300H/limestone_normal.jpg;/96Wx96H/limestone_thumbnail.jpg
+ ;0052;;0052_1.jpg;/300Wx300H/jamestaylor_normal.jpg;/96Wx96H/jamestaylor_thumbnail.jpg
+ ;0100;;0100_1.jpg;/300Wx300H/beatles_normal.jpg;/96Wx96H/beatles_thumbnail.jpg
+ ;0101;;0101_1.jpg;/300Wx300H/rollingstones_normal.jpg;/96Wx96H/rollingstones_thumbnail.jpg
+ ;0200;;0200_1.jpg;/300Wx300H/PedraBranca_normal.jpg;/96Wx96H/PedraBranca_thumbnail.jpg
+ ;0201;;0201_1.jpg;/300Wx300H/RootsRockReggae_normal.jpg;/96Wx96H/RootsRockReggae_thumbnail.jpg
+ ;0202;;0202_1.jpg;/300Wx300H/tribodejah_normal.jpg;/96Wx96H/tribodejah_thumbnail.jpg

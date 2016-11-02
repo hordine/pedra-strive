@@ -1,0 +1,20 @@
+$jarResource=jar:com.pedra.cockpits.constants.PedraCockpitsConstants&/pedracockpits/cscockpit
+
+#
+# Load medias
+#
+INSERT_UPDATE CockpitUIConfigurationMedia;code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true]
+
+;PedraProduct_ProductDetails_cockpitgroup_ui_config;text/xml;PedraProduct_ProductDetails.xml;$jarResource/xml/PedraProduct_ProductDetails.xml
+;PedraStyleVariantProduct_ProductDetails_cockpitgroup_ui_config;text/xml;PedraStyleVariantProduct_ProductDetails.xml;$jarResource/xml/PedraStyleVariantProduct_ProductDetails.xml
+;PedraSizeVariantProduct_ProductDetails_cockpitgroup_ui_config;text/xml;PedraSizeVariantProduct_ProductDetails.xml;$jarResource/xml/PedraSizeVariantProduct_ProductDetails.xml
+
+
+#
+# Setup cockpit configuration
+#
+INSERT_UPDATE CockpitUIComponentConfiguration;code[unique=true];factoryBean;objectTemplateCode[unique=true];principal(uid)[unique=true];media(code);
+
+;productDetails;listViewConfigurationFactory;PedraProduct;cockpitgroup;PedraProduct_ProductDetails_cockpitgroup_ui_config;
+;productDetails;listViewConfigurationFactory;PedraStyleVariantProduct;cockpitgroup;PedraStyleVariantProduct_ProductDetails_cockpitgroup_ui_config;
+;productDetails;listViewConfigurationFactory;PedraSizeVariantProduct;cockpitgroup;PedraSizeVariantProduct_ProductDetails_cockpitgroup_ui_config;

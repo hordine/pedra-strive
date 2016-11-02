@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<widget-definition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/widget-definition.xsd"
+	id="com.pedra.backoffice.widgets.pedrabackofficewidget">
+	<name>Pedrabackoffice Widget</name>
+	<description>Pedrabackoffice Widget</description>
+	<defaultTitle>Pedrabackoffice Widget</defaultTitle>
+	<author>Extgen</author>
+	<version>1.0</version>
+	<view src="pedrabackofficewidget.zul" />
+	<keywords>
+		<keyword>pedrabackoffice</keyword>
+	</keywords>
+	<controller class="com.pedra.backoffice.widgets.PedrabackofficeController" />
+</widget-definition>

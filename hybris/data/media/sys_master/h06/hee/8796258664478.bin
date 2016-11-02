@@ -1,0 +1,5 @@
+Dear ${ctx.name},
+
+Your ticket with reference ${ctx.ticketId} has been resolved with status ${ctx.event.resolutionType}.
+
+Thank you.

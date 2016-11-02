@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<bean id="test.checkOrderAction" class="com.pedra.test.actions.CheckOrder" scope="tenant" parent="abstractAction"/>
+	<bean id="test.cancelWholeOrderAuthorizationAction" class="com.pedra.test.actions.CancelWholeOrderAuthorization" scope="tenant" parent="abstractAction"/>
+	<bean id="test.sendOrderPlacedNotificationAction" class="com.pedra.test.actions.SendOrderPlacedNotification" scope="tenant" parent="abstractAction"/>
+	<bean id="test.takePaymentAction" class="com.pedra.test.actions.TakePayment" scope="tenant" parent="abstractAction"/>
+	<bean id="test.sendPaymentFailedNotificationAction" class="com.pedra.test.actions.SendPaymentFailedNotification" scope="tenant" parent="abstractAction"/>
+	<bean id="test.checkTransactionReviewStatusAction" class="com.pedra.test.actions.CheckTransactionReviewStatus" scope="tenant" parent="abstractAction"/>
+	<bean id="test.fraudCheckOrderAction" class="com.pedra.test.actions.FraudCheckOrder" scope="tenant" parent="abstractAction"/>
+	<bean id="test.prepareOrderForManualCheckAction" class="com.pedra.test.actions.PrepareOrderForManualCheck" scope="tenant" parent="abstractAction"/>
+	<bean id="test.sendFraudErrorNotificationAction" class="com.pedra.test.actions.SendFraudErrorNotification" scope="tenant" parent="abstractAction"/>
+	<bean id="test.checkAuthorizeOrderPaymentAction" class="com.pedra.test.actions.CheckAuthorizeOrderPayment" scope="tenant" parent="abstractAction"/>
+	<bean id="test.sendAuthorizationFailedNotificationAction" class="com.pedra.test.actions.SendAuthorizationFailedNotification" scope="tenant" parent="abstractAction"/>
+	<bean id="test.reserveOrderAmountAction" class="com.pedra.test.actions.ReserveOrderAmount" scope="tenant" parent="abstractAction"/>
+	<bean id="test.fraudCheckOrderInternalAction" class="com.pedra.test.actions.FraudCheckOrderInternal" scope="tenant" parent="abstractAction"/>
+	<bean id="test.orderManualCheckedAction" class="com.pedra.test.actions.OrderManualChecked" scope="tenant" parent="abstractAction"/>
+	<bean id="test.splitOrderAction" class="com.pedra.test.actions.SplitOrder" scope="tenant" parent="abstractAction"/>
+	<bean id="test.subprocessesCompletedAction" class="com.pedra.test.actions.SubprocessesCompleted" scope="tenant" parent="abstractAction"/>
+	<bean id="test.sendOrderCompletedNotificationAction" class="com.pedra.test.actions.SendOrderCompletedNotification" scope="tenant" parent="abstractAction"/>
+	<bean id="test.scheduleForCleanUpAction" class="com.pedra.test.actions.ScheduleForCleanUp" scope="tenant" parent="abstractAction"/>
+	<bean id="test.notifyCustomerAboutFraudAction" class="com.pedra.test.actions.NotifyCustomerAboutFraud" scope="tenant" parent="abstractAction"/>
+
+</beans>

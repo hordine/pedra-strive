@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<!-- Consignment Process Actions -->
+
+	<bean id="sendConsignmentToWarehouseAction" class="com.pedra.actions.consignment.SendConsignmentToWarehouseAction" scope="tenant" parent="abstractAction">
+		<property name="process2WarehouseAdapter" ref="process2WarehouseAdapter"/>
+	</bean>
+
+	<bean id="waitBeforeTransmissionAction" class="com.pedra.actions.consignment.WaitBeforeTransmissionAction" scope="tenant" parent="abstractAction"/>
+
+	<bean id="receiveConsignmentStatusAction" class="com.pedra.actions.consignment.ReceiveConsignmentStatusAction" scope="tenant" parent="abstractAction"/>
+
+	<bean id="confirmConsignmentPickupAction" class="com.pedra.actions.consignment.ConfirmConsignmentPickupAction" scope="tenant" parent="abstractAction"/>
+
+	<bean id="sendDeliveryMessageAction" class="com.pedra.actions.consignment.SendDeliveryMessageAction" scope="tenant" parent="abstractAction">
+		<property name="eventService" ref="eventService"/>
+	</bean>
+
+	<bean id="sendReadyForPickupMessageAction" class="com.pedra.actions.consignment.SendReadyForPickupMessageAction" scope="tenant" parent="abstractAction">
+		<property name="eventService" ref="eventService"/>
+	</bean>
+	
+	<bean id="sendPickedUpMessageAction" class="com.pedra.actions.consignment.SendPickedUpMessageAction" scope="tenant" parent="abstractAction">
+		<property name="eventService" ref="eventService"/>
+	</bean>
+
+	<bean id="cancelConsignmentAction" class="com.pedra.actions.consignment.CancelConsignmentAction" scope="tenant" parent="abstractAction"/>
+
+	<bean id="sendCancelMessageAction" class="com.pedra.actions.consignment.SendCancelMessageAction" scope="tenant" parent="abstractAction"/>
+
+	<bean id="subprocessEndAction" class="com.pedra.actions.consignment.SubprocessEndAction" scope="tenant" parent="abstractAction">
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
+	<bean id="allowShipmentAction" class="com.pedra.actions.consignment.AllowShipmentAction" scope="tenant" parent="abstractAction">
+		<property name="process2WarehouseAdapter" ref="process2WarehouseAdapter"/>
+	</bean>
+
+</beans>

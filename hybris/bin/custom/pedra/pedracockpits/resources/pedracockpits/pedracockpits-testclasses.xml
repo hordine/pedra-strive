@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testclasses>
+  <pedracockpits>
+    <testclass>com.pedra.cockpits.jalo.YAcceleratorcockpitsTest</testclass>
+    <testclass>com.pedra.cockpits.cmscockpit.sitewizard.CMSSiteUtilsTest</testclass>
+  </pedracockpits>
+</testclasses>

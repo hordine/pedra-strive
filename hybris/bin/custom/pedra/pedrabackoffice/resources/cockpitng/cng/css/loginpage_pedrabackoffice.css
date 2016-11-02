@@ -1,0 +1,7 @@
+@CHARSET "ISO-8859-1";
+
+@IMPORT url("login.css");
+ 
+.login_grid {
+    background: url("pedrabackoffice-login.jpg") no-repeat;
+}

@@ -1,0 +1,26 @@
+#
+#  Import the CMS content for the Apparel UK site emails
+#
+
+$emailResource=jar:com.pedra.core.setup.CoreSystemSetup&/pedracore/import/contentCatalogs/common/emails
+
+# Language
+$lang=en
+
+# CMS components and Email velocity templates
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+ ;apparel-uk-BannerComponent-template;"CMSBannerComponent Template";$emailResource/email-bannerComponentTemplate.vm
+ ;apparel-uk-CMSImageComponent-template;"CMSImageComponent Template";$emailResource/email-cmsImageComponentTemplate.vm
+ ;apparel-uk-CMSLinkComponent-template;"CMSLinkComponent Template";$emailResource/email-cmsLinkComponentTemplate.vm
+ ;apparel-uk-CMSParagraphComponent-template;"CMSParagraphComponent Template";$emailResource/email-cmsParagraphComponentTemplate.vm
+ ;apparel-uk-SimpleBannerComponent-template;"CMSSimpleBannerComponent Template";$emailResource/email-bannerComponentTemplate.vm
+ ;apparel-uk_Email_Customer_Registration_Body;"Customer Registration Email Body";$emailResource/email-customerRegistrationBody.vm
+ ;apparel-uk_Email_Customer_Registration_Subject;"Customer Registration Email Subject";$emailResource/email-customerRegistrationSubject.vm
+ ;apparel-uk_Email_Delivery_Sent_Body;"Delivery Sent Email Body";$emailResource/email-deliverySentBody.vm
+ ;apparel-uk_Email_Delivery_Sent_Subject;"Delivery Sent Email Subject";$emailResource/email-deliverySentSubject.vm
+ ;apparel-uk_Email_Forgotten_Password_Body;"Forgotten Password Email Body";$emailResource/email-forgottenPasswordBody.vm
+ ;apparel-uk_Email_Forgotten_Password_Subject;"Forgotten Password Email Subject";$emailResource/email-forgottenPasswordSubject.vm
+ ;apparel-uk_Email_Order_Confirmation_Body;"Order Confirmation Email Body";$emailResource/email-orderConfirmationBody.vm
+ ;apparel-uk_Email_Order_Confirmation_Subject;"Order Confirmation Email Subject";$emailResource/email-orderConfirmationSubject.vm
+ ;apparel-uk_Email_Ready_For_Pickup_Body;"Ready For Pickup Email Body";$emailResource/email-readyForPickupBody.vm
+ ;apparel-uk_Email_Ready_For_Pickup_Subject;"Ready For Pickup Email Subject";$emailResource/email-readyForPickupSubject.vm

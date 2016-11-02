@@ -1,0 +1,158 @@
+# ImpEx for Importing CMS Content into Pedra store
+  
+# Macros / Replacement Parameter definitions
+$contentCatalog=pedraContentCatalog
+$productCatalog=pedraProductCatalog
+$storeName=pedra
+  
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$siteResource=jar:com.pedra.initialdata.setup.InitialDataSystemSetup&/pedrainitialdata/import/contentCatalogs/$contentCatalog
+  
+# CMS Site Settings
+UPDATE CMSSite;uid[unique=true];defaultPreviewCategory(code, $productCV);defaultPreviewProduct(code, $productCV)
+;pedra;100;0001
+  
+  
+# Site Logo
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpg'];altText
+;;/images/theme/logo-pedra.jpg;logo-pedra.jpg;$siteResource/images/theme/logo-pedra.jpg;image/jpg;
+  
+  
+# Site Logo Component
+INSERT_UPDATE CMSImageComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;
+;;SiteLogoImage;Site Logo Image;SiteLogoImage;
+  
+# CMS Link Components
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&linkRef;&componentRef;category(code, $productCV);target(code)[default='sameWindow']
+;;HomepageNavLink;Home Page Nav Link;;HomepageNavLink;HomepageNavLink;;
+;;HardRockCategoryLink;HardRock Link;/Pedra-Catalogue/Goodies/c/100;HardRockCategoryLink;HardRockCategoryLink;100;
+;;SoftRockCategoryLink;SoftRock Link;/Pedra-Catalogue/Apparel/c/200;SoftRockCategoryLink;SoftRockCategoryLink;100;
+;;BuyMeLink;Buy Link;http://www.hybris.com;BuyMeLink;BuyMeLink;;
+  
+# Lightbox Banner for Mini Cart
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;LightboxHomeDeliveryBannerComponent;Lightbox Home Delivery Banner Component;LightboxHomeDeliveryBannerComponent;
+  
+# CMS Mini Cart Component
+INSERT_UPDATE MiniCartComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;totalDisplay(code);shownProductCount;lightboxBannerComponent(&componentRef)
+;;MiniCart;Mini Cart;MiniCart;SUBTOTAL;3;LightboxHomeDeliveryBannerComponent
+  
+# CMS Navigation Nodes
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef
+;HybrisSiteRootNode;;HybrisSiteRootNode;;;HybrisSiteRootNode
+;HybrisNavNode;;Pedra Site;HybrisSiteRootNode;HomepageNavLink;HybrisNavNode
+;HardRockNavNode;;Pedra Site HardRock;HybrisSiteRootNode;HardRockCategoryLink;HardRockNavNode
+;SoftRockNavNode;;Pedra Site HardRock- SoftRock;HybrisSiteRootNode;SoftRockCategoryLink;SoftRockNavNode
+;BuyMeNavNode;;Pedra Site HardRock;HybrisSiteRootNode;BuyMeLink;BuyMeNavNode
+  
+# Navigation Bar Component
+INSERT_UPDATE NavigationBarComponent;$contentCV[unique=true];uid[unique=true];name;wrapAfter;link(uid, $contentCV);styleClass;&componentRef;navigationNode(&nodeRef);dropDownLayout(code)
+;;HardRockBarComponent;HardRock Bar Component;10;HardRockCategoryLink;;HardRockBarComponent
+;;SoftRockBarComponent;SoftRock Bar Component;10;SoftRockCategoryLink;;SoftRockBarComponent
+;;BuyMeLinkBarComponent;Buy Me Link Bar Component;10;BuyMeLink;;BuyMeLinkBarComponent
+  
+  
+# CMS Tab Paragraph Components
+INSERT_UPDATE CMSTabParagraphComponent;$contentCV[unique=true];uid[unique=true];name;visible;&componentRef
+;;deliveryTab;Delivery tab;true;deliveryTab
+  
+INSERT_UPDATE CMSTabParagraphContainer;$contentCV[unique=true];uid[unique=true];name;visible;simpleCMSComponents(uid, $contentCV);&componentRef
+;;TabPanelContainer;Tab container;true;deliveryTab;TabPanelContainer
+  
+# CMS Footer Component
+INSERT_UPDATE FooterComponent;$contentCV[unique=true];uid[unique=true];wrapAfter;&componentRef;navigationNodes(&nodeRef)
+;;FooterComponent;2;FooterComponent
+  
+# Category Pages
+INSERT_UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved']
+;;HardRock;HardRock;ProductListPageTemplate;false;
+;;SoftRock;SoftRock;ProductListPageTemplate;false;
+  
+# CMS Paragraph Components
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;contactInfo;Contact information;contactInfo
+;;welcomeMessage;Lorem;welcomeMessage
+  
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];&componentRef;
+;;NextDayDeliveryBanner120;NextDayDeliveryBanner120;
+  
+# CMS ProductReferences Components
+INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;
+;;accessories;Accessories;ACCESSORIES;5
+;;CrossSelling;Cross Selling;CROSSELLING;5
+;;Others;Others;OTHERS;5
+;;Similar;Similar;SIMILAR;5
+  
+# CMS PurchasedProductReferences Components
+INSERT_UPDATE PurchasedProductReferencesComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;filterPurchased;category(code, $productCV);&componentRef
+;;PurchasedCategoryCrossSelling;Cross Selling Purchased Category;OTHERS;10;true;100;PurchasedCategoryCrossSelling
+  
+# Content Slots
+  
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;SiteLogoSlot;Default Site Logo Slot;true;SiteLogoImage
+;;HomepageNavLinkSlot;Default Homepage Link;true;HomepageNavLink
+;;MiniCartSlot;Mini Cart;true;MiniCart
+;;NavigationBarSlot;Navigation Bar;true;HardRockBarComponent,SoftRockBarComponent
+;;TabsSlot;Tabs;true;TabPanelContainer
+;;WideContentSlot;Wide Content;true
+;;TopContentSlot;Top Content;true
+;;MiddleContentSlot;Middle Content;true
+;;BottomContentSlot;Bottom Content;true
+;;SideContentSlot;Side Content;true
+;;FeatureContentSlot;Feature Content;true
+;;FooterSlot;Footer;true;FooterComponent
+;;HeaderLinksSlot;Header links;true;contactInfo
+  
+  
+  
+########################################
+###### Hybris  Homepage ######
+INSERT_UPDATE ProductCarouselComponent;$contentCV[unique=true];uid[unique=true];name;products(code,$productCV);scroll(code);&componentRef
+;;HybrisHomepageProductCarouselComponent;Hybris Homepage Product Carousel;0001,0002,0050,0051,0052,0100,0101,0200,0201,0202;allVisible;HybrisHomepageProductCarouselComponent
+  
+  
+  
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section1Slot-Homepage;Section1 Slot for Homepage;true;welcomeMessage
+;;Section2ASlot-Homepage;Section2A Slot for Homepage;true;
+;;Section2BSlot-Homepage;Section2B Slot for Homepage;true;
+;;Section2CSlot-Homepage;Section2C Slot for Homepage;true;
+;;Section3Slot-Homepage;Section3 Slot for Homepage;true;HybrisHomepageProductCarouselComponent;
+;;Section4Slot-Homepage;Section4 Slot for Homepage;true;PurchasedCategoryCrossSelling;
+;;Section5Slot-Homepage;Section5 Slot for Homepage;true;NextDayDeliveryBanner120;
+;;Section6Slot-search;Section6 Slot for search;true;
+;;Section7Slot-search;Section7 Slot for search;true;
+  
+  
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='homepage'];contentSlot(uid,$contentCV)[unique=true]
+;;Section1-Homepage;Section1;;Section1Slot-Homepage
+;;Section2A-Homepage;Section2A;;Section2ASlot-Homepage
+;;Section2B-Homepage;Section2B;;Section2BSlot-Homepage
+;;Section2C-Homepage;Section2C;;Section2CSlot-Homepage
+;;Section3-Homepage;Section3;;Section3Slot-Homepage
+;;Section4-Homepage;Section4;;Section4Slot-Homepage
+;;Section5-Homepage;Section5;;Section5Slot-Homepage
+  
+  
+###### Hybris Search Results Page ######
+  
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='search'];contentSlot(uid,$contentCV)[unique=true]
+;;Section6-search;Section2;;Section6Slot-search
+;;Section7-search;Section4;;Section7Slot-search
+  
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;NoSearchResultsParagraphComponent;No Search Results Paragraph Component;NoSearchResultsParagraphComponent
+  
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;TopContent-searchEmpty;Top Slot for searchEmpty;true;
+;;SideContent-searchEmpty;Side Slot for searchEmpty;true;
+;;MiddleContent-searchEmpty;Middle Slot for searchEmpty;true;NoSearchResultsParagraphComponent
+  
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='searchEmpty'];contentSlot(uid,$contentCV)[unique=true]
+;;Top-searchEmpty;TopContent;;TopContent-searchEmpty
+;;Side-searchEmpty;SideContent;;SideContent-searchEmpty
+;;Middle-searchEmpty;MiddleContent;;MiddleContent-searchEmpty
+  
+ ########################################

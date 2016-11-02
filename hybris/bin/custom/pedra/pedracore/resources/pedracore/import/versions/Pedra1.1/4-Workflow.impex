@@ -1,0 +1,26 @@
+"INSERT_UPDATE WorkflowTemplate";"code[unique=true]";"name[lang=de]";"name[lang=en]";"owner(uid)";"description[lang=de]";"description[lang=en]";"activationscript";"visibleForPrincipals(uid)";;;
+;"NewProductReviewRegistration";"Reviung Registrierung";"New Product review Registration";"admin";;;;"pedraadmingroup";;;
+ 
+ 
+"INSERT_UPDATE WorkflowActionTemplate";"code[unique=true]";"name[lang=en]";"description[lang=en]";"principalAssigned(uid)";"workflow(code)[unique=true]";"sendEmail";"emailAddress";"rendererTemplate(code)";"actionType(code)"
+;"NPR_Start";"Review Approval Action";;"pedraadmingroup";"NewProductReviewRegistration";"false";;;"start"
+;"NPR_End";"Review Approval End";;"pedraadmingroup";"NewProductReviewRegistration";"false";;;"end"
+ 
+ 
+"INSERT_UPDATE AutomatedWorkflowActionTemplate";"code[unique=true]";"name[lang=en]";"description[lang=en]";"principalAssigned(uid)";"workflow(code)[unique=true]";"sendEmail";"emailAddress";"rendererTemplate(code)";"actionType(code)";jobHandler
+;"NPR_Approval_Positive";"Review approved";;"pedraadmingroup";"NewProductReviewRegistration";"false";;;"normal";reviewApprovedActionJob
+;"NPR_Approval_Negative";"Review disapproved";;"pedraadmingroup";"NewProductReviewRegistration";"false";;;"normal";reviewDisapprovedActionJob
+ 
+ 
+"INSERT_UPDATE WorkflowDecisionTemplate";"code[unique=true]";"name[lang=en]";"actionTemplate(code)";"description[allownull=true]";;;;;;
+;"Decision_ApproveReview";"Approve review";"NPR_Start";;;;;;;
+;"Decision_DisapproveReview";"Disapprove review";"NPR_Start";;;;;;;
+;"Decision_EndApproval";"Dummy approval-to-end Decision";"NPR_Approval_Positive";;;;;;;
+;"Decision_EndDisapproval";"Dummy disapproval-to-end Decision";"NPR_Approval_Negative";;;;;;;
+ 
+ 
+"INSERT_UPDATE WorkflowActionTemplateLinkTemplateRelation";"source(code)[unique=true]";"target(code)[unique=true]";"andConnectionTemplate";"qualifier";;;;;;;
+;"Decision_ApproveReview";"NPR_Approval_Positive";"false";"WorkflowActionTemplateLinkTemplateRelation";;;;;;;
+;"Decision_DisapproveReview";"NPR_Approval_Negative";"false";"WorkflowActionTemplateLinkTemplateRelation";;;;;;;
+;"Decision_EndApproval";"NPR_End";"false";"WorkflowActionTemplateLinkTemplateRelation";;;;;;;
+;"Decision_EndDisapproval";"NPR_End";"false";"WorkflowActionTemplateLinkTemplateRelation";;;;;;;

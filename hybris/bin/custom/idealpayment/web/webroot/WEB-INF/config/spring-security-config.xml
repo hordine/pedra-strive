@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<!--Security config for checkout - it has its own login page-->
+	<security:http disable-url-rewriting="true" pattern="/**" use-expressions="true">
+      <security:anonymous username="anonymous" granted-authority="ROLE_ANONYMOUS" />
+		<security:access-denied-handler error-page="/login"/>
+	
+		<!-- session stealing is prevented by using secure GUID cookie -->
+		<security:session-management session-fixation-protection="none" />
+
+		<!-- SSL / AUTHENTICATED pages -->
+
+		<security:intercept-url pattern="/payment/request/**" requires-channel="https" />
+		
+		<!-- Login Mechanism (required) -->
+		<security:form-login login-processing-url="/login" login-page="/loginPage"
+            username-parameter="username" password-parameter="password"
+            default-target-url="/secured/mypage" authentication-failure-url="/loginPage?auth=fail" />
+
+		<security:port-mappings>
+			<security:port-mapping http="#{configurationService.configuration.getProperty('tomcat.http.port')}"
+			                       https="#{configurationService.configuration.getProperty('tomcat.ssl.port')}" />
+			<security:port-mapping http="80" https="443" />
+			<!--security:port-mapping http="#{configurationService.configuration.getProperty('proxy.http.port')}"
+				https="#{configurationService.configuration.getProperty('proxy.ssl.port')}" /-->
+		</security:port-mappings>
+
+	</security:http>
+	
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider ref="coreAuthenticationProvider" />
+	</security:authentication-manager>
+	
+	<bean id="coreAuthenticationProvider" class="de.hybris.platform.spring.security.CoreAuthenticationProvider" scope="tenant">
+		<property name="preAuthenticationChecks" ref="corePreAuthenticationChecks" />
+		<property name="userDetailsService" ref="coreUserDetailsService" />
+	</bean>
+	
+	<bean id="corePreAuthenticationChecks" class="de.hybris.platform.spring.security.RejectUserPreAuthenticationChecks">
+		<property name="allowedUserGroups">
+			<list>
+				<value>Customergroup</value>
+			</list>
+		</property>
+		<property name="allowedUserTypes">
+			<list>
+				<value>Customer</value>
+			</list>
+		</property>
+	</bean>
+	
+		
+	<bean id="coreUserDetailsService" class="de.hybris.platform.spring.security.CoreUserDetailsService" />
+	
+
+	<!-- Path matcher to use, AntPathMatcher is the default -->
+	<alias name="antPathMatcher" alias="defaultPathMatcher" />
+	<bean id="antPathMatcher" class="org.springframework.util.AntPathMatcher" />
+
+</beans>

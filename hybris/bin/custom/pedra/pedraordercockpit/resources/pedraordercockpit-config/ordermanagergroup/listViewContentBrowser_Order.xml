@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list-view unassigned-group-name="Other">
+  <group name="General">
+        <property qualifier="Order.code" visible="true"/>
+        <property qualifier="Order.date" visible="true"/>
+        <property qualifier="Order.user" visible="true"/>
+        <property qualifier="Order.statusDisplay" visible="true"/>
+        <property qualifier="Order.paymentStatus" visible="true"/>        
+    </group>
+</list-view>
